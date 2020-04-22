@@ -497,4 +497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6423fb58b3e9b954597214b178218a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 1
+  velocity_H: 2
+  inAir_Velocity_H: 1.5
+  inAir_Velocity_V: 2
