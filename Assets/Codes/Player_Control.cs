@@ -11,14 +11,14 @@ public class Player_Control : MonoBehaviour
     Vector2 updated_PlayerVelocity;
     //Mode
     bool inAir;
-    bool direction_H;
+    float direction_H;
 
     //Properties
     Rigidbody2D playerRB;
     Transform playerTF;
     
     //Properties to be Adjusted
-    [SerializedField] float velocity = 1f;
+    [SerializeField] float velocity = 1f;
 
     void Start()
     {
@@ -42,9 +42,9 @@ public class Player_Control : MonoBehaviour
     //This only return whether the move is caused by user interaction
     bool move(){
         //Need to be replaced with crossplatform Input manager
-        if(abs(translation_H)>0){
-            Updated_playerVelocity = new Vector2(translation_H,playerRB.velocity.y);
-            playerRB.velocity = playerVelocity;
+        if(Mathf.Abs(translation_H)>0){
+            updated_PlayerVelocity = new Vector2(translation_H,playerRB.velocity.y);
+            playerRB.velocity = updated_PlayerVelocity;
             return true;
         }
 
@@ -60,7 +60,7 @@ public class Player_Control : MonoBehaviour
      private void flipSprite()
     {
         direction_H = (Mathf.Sign(playerRB.velocity.x));
-        playerTF.localScale = new Vector2(RightorLeft, 1f);
+        playerTF.localScale = new Vector2(direction_H, 1f);
         //playerAN.SetBool("Running", goingRightorLeft);
     }
 }
