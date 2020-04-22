@@ -11,50 +11,71 @@ public class Player_Control : MonoBehaviour
     Vector2 updated_PlayerVelocity;
     //Mode
     bool inAir;
+    bool canJump;
     float direction_H;
 
     //Properties
     Rigidbody2D playerRB;
     Transform playerTF;
+    CapsuleCollider2D playerCL;
     
     //Properties to be Adjusted
-    [SerializeField] float velocity = 1f;
+    [SerializeField] float velocity_H = 1f;
+    [SerializeField] float inAir_Velocity_H = 1.5f;
+    [SerializeField] float inAir_Velocity_V = 5f;
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerTF = GetComponent<Transform>();
+        playerCL = GetComponent<CapsuleCollider2D>();
+
+        canJump = true;
     }
 
     void Update()
     {
-        //Should Input Axis be detected here or in each seperate function? use if value to test?
+        //Interaction Detect
         translation_H =  Input.GetAxis("Horizontal");
-        if(move()){
+        translation_V = Input.GetAxis("Vertical");
+
+        //Mode Detect
+        //onGround = playerCL.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        velocity_Control();
+
+
+        //Interaction Control(can be a function later)
+        if(Mathf.Abs(translation_H)>0){
+            
             if(Mathf.Sign(playerRB.velocity.x) != translation_H ){
                 flipSprite();
             }
+
+            move();
+        }
+
+        if(translation_V>0){
+            Jump();
         }
 
 
     }
 
     //This only return whether the move is caused by user interaction
-    bool move(){
+    void move(){
         //Need to be replaced with crossplatform Input manager
-        if(Mathf.Abs(translation_H)>0){
-            updated_PlayerVelocity = new Vector2(translation_H,playerRB.velocity.y);
-            playerRB.velocity = updated_PlayerVelocity;
-            return true;
-        }
-
-        return false;
-        
+        updated_PlayerVelocity = new Vector2(translation_H*velocity_H,playerRB.velocity.y);
+        playerRB.velocity = updated_PlayerVelocity;
+ 
     }
 
-    void jump(){
-        translation_V = Input.GetAxis("Vertical");
-
+    void Jump()
+    {
+        if (canJump)
+        {
+            updated_PlayerVelocity = new Vector2(playerRB.velocity.x, translation_V*inAir_Velocity_V);
+            playerRB.velocity = updated_PlayerVelocity;
+        }
     }
 
      private void flipSprite()
@@ -62,5 +83,16 @@ public class Player_Control : MonoBehaviour
         direction_H = (Mathf.Sign(playerRB.velocity.x));
         playerTF.localScale = new Vector2(direction_H, 1f);
         //playerAN.SetBool("Running", goingRightorLeft);
+    }
+
+    void detectCanJump(){
+        //if --> canJump = true
+    }
+
+
+    void velocity_Control(){
+        if(inAir){
+            velocity_H = inAir_Velocity_H;
+        }
     }
 }
