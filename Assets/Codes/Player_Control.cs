@@ -9,28 +9,36 @@ public class Player_Control : MonoBehaviour
     float translation_H;
     float translation_V;
     Vector2 updated_PlayerVelocity;
+
     //Mode
     bool inAir;
     bool canJump;
+    bool moving_Forced_H;
     float direction_H;
+    bool wearMask;
+    //int whichMask
 
     //Properties
     Rigidbody2D playerRB;
     Transform playerTF;
-    CapsuleCollider2D playerCL;
+    BoxCollider2D playerCL;
+    Animator playerAN;
     
     //Properties to be Adjusted
     [SerializeField] float velocity_H = 1f;
     [SerializeField] float inAir_Velocity_H = 1.5f;
     [SerializeField] float inAir_Velocity_V = 5f;
+    // [SerializeField] bool canJump;
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerTF = GetComponent<Transform>();
-        playerCL = GetComponent<CapsuleCollider2D>();
+        playerCL = GetComponent<BoxCollider2D>();
+        playerAN = GetComponent<Animator>();
 
         canJump = true;
+        wearMask = false;
     }
 
     void Update()
@@ -40,8 +48,9 @@ public class Player_Control : MonoBehaviour
         translation_V = Input.GetAxis("Vertical");
 
         //Mode Detect
-        //onGround = playerCL.IsTouchingLayers(LayerMask.GetMask("Ground"));
         velocity_Control();
+        detectCanJump();
+        animation_Control();
 
 
         //Interaction Control(can be a function later)
@@ -52,10 +61,15 @@ public class Player_Control : MonoBehaviour
             }
 
             move();
+            moving_Forced_H = true;
+        }else{
+            moving_Forced_H = false;
+            
         }
 
         if(translation_V>0){
             Jump();
+            
         }
 
 
@@ -71,7 +85,7 @@ public class Player_Control : MonoBehaviour
 
     void Jump()
     {
-        if (canJump)
+        if(canJump)
         {
             updated_PlayerVelocity = new Vector2(playerRB.velocity.x, translation_V*inAir_Velocity_V);
             playerRB.velocity = updated_PlayerVelocity;
@@ -85,14 +99,45 @@ public class Player_Control : MonoBehaviour
         //playerAN.SetBool("Running", goingRightorLeft);
     }
 
+
+    //State Controll functiion
     void detectCanJump(){
-        //if --> canJump = true
+        if(!playerCL.IsTouchingLayers(LayerMask.GetMask("Ground"))){
+            canJump = false;
+        }else{
+            canJump = true;
+        }
     }
 
 
     void velocity_Control(){
+        //TODO:Inair detection? what else situation besides not touching ground
         if(inAir){
             velocity_H = inAir_Velocity_H;
         }
     }
+
+    void animation_Control(){
+
+        //TODO: inair and Jump condition should also be considered
+        if(moving_Forced_H){
+            playerAN.SetBool("Walking", true);
+        }else{
+            playerAN.SetBool("Walking",false);
+        }
+        
+    }
+
+
+    //Interaction with Other Elements
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag == "Mask"){
+            //Before Destroying, read the information
+            Destroy(other.gameObject);
+            wearMask = true;
+            playerAN.SetBool("Masked",true);
+        }
+    }
+
+    
 }
