@@ -30,6 +30,10 @@ public class Player_Control : MonoBehaviour
     [SerializeField] float inAir_Velocity_V = 5f;
     // [SerializeField] bool canJump;
 
+
+    //Interaction Needed GameObject
+    [SerializeField] Rigidbody2D Attack;
+
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
@@ -72,6 +76,10 @@ public class Player_Control : MonoBehaviour
             
         }
 
+        if(Input.GetButtonDown("Fire1")){
+            attack();
+        }
+
 
     }
 
@@ -97,6 +105,12 @@ public class Player_Control : MonoBehaviour
         direction_H = (Mathf.Sign(playerRB.velocity.x));
         playerTF.localScale = new Vector2(direction_H, 1f);
         //playerAN.SetBool("Running", goingRightorLeft);
+    }
+
+    private void attack(){
+        Rigidbody2D clone;
+        Vector3 attackPosition = new Vector3((transform.position.x+2*Mathf.Sign(playerRB.velocity.x)),transform.position.y,transform.position.z);
+        clone = Instantiate(Attack, attackPosition, transform.rotation);
     }
 
 
