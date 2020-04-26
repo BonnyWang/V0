@@ -13,10 +13,15 @@ public class Player_Control : MonoBehaviour
     //Mode
     bool inAir;
     bool canJump;
+    bool canInteract;
     bool moving_Forced_H;
     float direction_H;
     bool wearMask;
     //int whichMask
+    bool underAttack;
+    bool onGround;
+    float distance_ToEnemyAttaed;
+
 
     //Properties
     float health;
@@ -36,6 +41,7 @@ public class Player_Control : MonoBehaviour
 
     //Interaction Needed GameObject
     [SerializeField] Rigidbody2D Attack;
+    GameObject enemey_Attacked;
 
     void Start()
     {
@@ -45,7 +51,9 @@ public class Player_Control : MonoBehaviour
         playerAN = GetComponent<Animator>();
 
         canJump = true;
+        canInteract = true;
         wearMask = false;
+        underAttack = false;
 
         health = 50;
     }
@@ -57,16 +65,26 @@ public class Player_Control : MonoBehaviour
         translation_V = Input.GetAxis("Vertical");
 
         //Mode Detect
+        detectState();
         velocity_Control();
         detectCanJump();
         animation_Control();
+        detectCanIneract();
         life_Controll();
 
 
         //Interaction Control(can be a function later)
+        if(canInteract){
+            interactControll();
+        }
+            
+
+    }
+
+    void interactControll(){
         if(Mathf.Abs(translation_H)>0){
             
-            if(Mathf.Sign(playerRB.velocity.x) != translation_H ){
+            if(Mathf.Sign(playerRB.velocity.x) != Mathf.Sign(playerTF.localScale.x)){
                 flipSprite();
             }
 
@@ -81,11 +99,11 @@ public class Player_Control : MonoBehaviour
             Jump();
             
         }
+        
 
         if(Input.GetButtonDown("Fire1")){
             attack();
         }
-
 
     }
 
@@ -106,11 +124,10 @@ public class Player_Control : MonoBehaviour
         }
     }
 
-     private void flipSprite()
+    private void flipSprite()
     {
         direction_H = (Mathf.Sign(playerRB.velocity.x));
         playerTF.localScale = new Vector2(direction_H, 1f);
-        //playerAN.SetBool("Running", goingRightorLeft);
     }
 
     private void attack(){
@@ -121,14 +138,34 @@ public class Player_Control : MonoBehaviour
 
 
     //State Controll functiion
+    void detectState(){
+        onGround = playerCL.IsTouchingLayers(LayerMask.GetMask("Ground"));
+    }
+
     void detectCanJump(){
-        if(!playerCL.IsTouchingLayers(LayerMask.GetMask("Ground"))){
+        if(!onGround){
             canJump = false;
         }else{
             canJump = true;
         }
     }
 
+    void detectCanIneract(){
+        if(underAttack){
+            distance_ToEnemyAttaed = gameObject.transform.position.x - enemey_Attacked.transform.position.x;
+            
+            canInteract = false;
+            
+            if(Mathf.Abs( distance_ToEnemyAttaed) > 5){
+                canInteract = true;
+                underAttack = false;
+            }
+        }else{
+            canInteract = true;
+        }
+    }
+
+    
 
     void velocity_Control(){
         //TODO:Inair detection? what else situation besides not touching ground
@@ -166,6 +203,10 @@ public class Player_Control : MonoBehaviour
         if(other.gameObject.tag == "Enemy"){
             //Before Destroying, read the information
             health -= 10;
+            Vector2 backOff = new Vector2(Mathf.Sign(transform.position.x-other.transform.position.x)*5,2);
+            playerRB.AddForce( backOff,ForceMode2D.Impulse);
+            underAttack = true;
+            enemey_Attacked = other.gameObject;
         }
     }
 
