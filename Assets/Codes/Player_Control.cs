@@ -19,6 +19,9 @@ public class Player_Control : MonoBehaviour
     //int whichMask
 
     //Properties
+    float health;
+
+    //Components
     Rigidbody2D playerRB;
     Transform playerTF;
     BoxCollider2D playerCL;
@@ -43,6 +46,8 @@ public class Player_Control : MonoBehaviour
 
         canJump = true;
         wearMask = false;
+
+        health = 50;
     }
 
     void Update()
@@ -55,6 +60,7 @@ public class Player_Control : MonoBehaviour
         velocity_Control();
         detectCanJump();
         animation_Control();
+        life_Controll();
 
 
         //Interaction Control(can be a function later)
@@ -142,6 +148,12 @@ public class Player_Control : MonoBehaviour
         
     }
 
+    void life_Controll(){
+        if(health <= 0){
+            Destroy(gameObject);
+        }
+    }
+
 
     //Interaction with Other Elements
     private void OnCollisionEnter2D(Collision2D other) {
@@ -150,6 +162,10 @@ public class Player_Control : MonoBehaviour
             Destroy(other.gameObject);
             wearMask = true;
             playerAN.SetBool("Masked",true);
+        }
+        if(other.gameObject.tag == "Enemy"){
+            //Before Destroying, read the information
+            health -= 10;
         }
     }
 
