@@ -1095,6 +1095,7 @@ MonoBehaviour:
   velocity_H: 2
   inAir_Velocity_H: 1.5
   inAir_Velocity_V: 5
+  recoveryTime: 1
   Attack: {fileID: 1102229915551136940, guid: 8868a319f4c2e0f41a121ffae6f7ad71, type: 3}
 --- !u!114 &1465246640
 MonoBehaviour:

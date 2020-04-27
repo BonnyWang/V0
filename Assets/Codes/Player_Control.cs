@@ -23,8 +23,9 @@ public class Player_Control : MonoBehaviour
     bool wearMask;
     //int whichMask
     bool underAttack;
+    float time_Attacked;
     bool onGround;
-    float distance_ToEnemyAttaed;
+    // float distance_ToEnemyAttaed;
 
 
 
@@ -38,12 +39,13 @@ public class Player_Control : MonoBehaviour
     [SerializeField] float velocity_H = 1f;
     [SerializeField] float inAir_Velocity_H = 1.5f;
     [SerializeField] float inAir_Velocity_V = 5f;
+    [SerializeField] float recoveryTime = 1.5f;
     // [SerializeField] bool canJump;
 
 
     //Interaction Needed GameObject
     [SerializeField] Rigidbody2D Attack;
-    GameObject enemey_Attacked;
+    // GameObject enemey_Attacked;
 
     void Start()
     {
@@ -153,11 +155,11 @@ public class Player_Control : MonoBehaviour
 
     void detectCanIneract(){
         if(underAttack){
-            distance_ToEnemyAttaed = gameObject.transform.position.x - enemey_Attacked.transform.position.x;
+            // distance_ToEnemyAttaed = gameObject.transform.position.x - enemey_Attacked.transform.position.x;
             
             canInteract = false;
             
-            if(Mathf.Abs( distance_ToEnemyAttaed) > 5){
+            if((Time.time - time_Attacked) > recoveryTime){
                 canInteract = true;
                 underAttack = false;
             }
@@ -199,7 +201,8 @@ public class Player_Control : MonoBehaviour
             Vector2 backOff = new Vector2(Mathf.Sign(transform.position.x-other.transform.position.x)*5,2);
             playerRB.AddForce( backOff,ForceMode2D.Impulse);
             underAttack = true;
-            enemey_Attacked = other.gameObject;
+            time_Attacked = Time.time;
+            // enemey_Attacked = other.gameObject;
         }
     }
 
