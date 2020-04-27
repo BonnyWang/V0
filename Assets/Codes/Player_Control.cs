@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player_Control : MonoBehaviour
 {
+
+    //Access to other
+    Player player;
+
     //Variables
     //Movement
     float translation_H;
@@ -23,8 +27,6 @@ public class Player_Control : MonoBehaviour
     float distance_ToEnemyAttaed;
 
 
-    //Properties
-    float health;
 
     //Components
     Rigidbody2D playerRB;
@@ -45,17 +47,17 @@ public class Player_Control : MonoBehaviour
 
     void Start()
     {
+        player = GetComponent<Player>();
         playerRB = GetComponent<Rigidbody2D>();
         playerTF = GetComponent<Transform>();
         playerCL = GetComponent<BoxCollider2D>();
         playerAN = GetComponent<Animator>();
 
+
         canJump = true;
         canInteract = true;
         wearMask = false;
         underAttack = false;
-
-        health = 50;
     }
 
     void Update()
@@ -70,7 +72,6 @@ public class Player_Control : MonoBehaviour
         detectCanJump();
         animation_Control();
         detectCanIneract();
-        life_Controll();
 
 
         //Interaction Control(can be a function later)
@@ -185,12 +186,6 @@ public class Player_Control : MonoBehaviour
         
     }
 
-    void life_Controll(){
-        if(health <= 0){
-            Destroy(gameObject);
-        }
-    }
-
 
     //Interaction with Other Elements
     private void OnCollisionEnter2D(Collision2D other) {
@@ -201,8 +196,6 @@ public class Player_Control : MonoBehaviour
             playerAN.SetBool("Masked",true);
         }
         if(other.gameObject.tag == "Enemy"){
-            //Before Destroying, read the information
-            health -= 10;
             Vector2 backOff = new Vector2(Mathf.Sign(transform.position.x-other.transform.position.x)*5,2);
             playerRB.AddForce( backOff,ForceMode2D.Impulse);
             underAttack = true;
