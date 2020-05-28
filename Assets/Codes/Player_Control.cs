@@ -12,6 +12,7 @@ public class Player_Control : MonoBehaviour
     //Movement
     float translation_H;
     float translation_V;
+    bool space_Jump;
     Vector2 updated_PlayerVelocity;
 
     //Mode
@@ -67,6 +68,7 @@ public class Player_Control : MonoBehaviour
         //Interaction Detect
         translation_H =  Input.GetAxis("Horizontal");
         translation_V = Input.GetAxis("Vertical");
+        space_Jump = Input.GetButtonDown("Jump");
 
         //Mode Detect
         detectState();
@@ -98,11 +100,15 @@ public class Player_Control : MonoBehaviour
             
         }
 
+        //TODO:Need to change?
         if(translation_V>0){
             Jump();
             
         }
         
+        if(space_Jump){
+            Jump();
+        }
 
         if(Input.GetButtonDown("Fire1")){
             attack();
@@ -122,7 +128,7 @@ public class Player_Control : MonoBehaviour
     {
         if(canJump)
         {
-            updated_PlayerVelocity = new Vector2(playerRB.velocity.x, translation_V*inAir_Velocity_V);
+            updated_PlayerVelocity = new Vector2(playerRB.velocity.x, inAir_Velocity_V);
             playerRB.velocity = updated_PlayerVelocity;
         }
     }
