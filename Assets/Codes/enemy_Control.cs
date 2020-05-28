@@ -21,7 +21,7 @@ public class enemy_Control : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Attack"){
+        if(other.gameObject.tag.Substring(0,6) == "Attack"){
             health -= 3;
             
         }

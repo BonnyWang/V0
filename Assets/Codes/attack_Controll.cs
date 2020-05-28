@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class attack_Controll : MonoBehaviour
 {
-    // Start is called before the first frame update
+    float duration;
     void Start()
     {
-        Destroy(gameObject,0.3f);
+        if(gameObject.tag == "Attack"){
+            duration = 0.3f;
+        }
+        if(gameObject.tag == "AttackLong"){
+            duration = 1f;
+        }
+        Destroy(gameObject,duration);
     }
 
     // Update is called once per frame

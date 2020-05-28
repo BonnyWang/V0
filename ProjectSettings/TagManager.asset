@@ -8,6 +8,8 @@ TagManager:
   - Attack
   - Enemy
   - Mask1
+  - Mask2
+  - AttackLong
   layers:
   - Default
   - TransparentFX

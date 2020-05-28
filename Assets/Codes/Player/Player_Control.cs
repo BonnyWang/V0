@@ -41,9 +41,7 @@ public class Player_Control : MonoBehaviour
     // [SerializeField] bool canJump;
 
 
-    //Interaction Needed GameObject
-    [SerializeField] Rigidbody2D Attack;
-    // GameObject enemey_Attacked;
+
 
     void Start()
     {
@@ -106,9 +104,6 @@ public class Player_Control : MonoBehaviour
             Jump();
         }
 
-        if(Input.GetButtonDown("Fire1")){
-            attack();
-        }
 
     }
 
@@ -135,11 +130,11 @@ public class Player_Control : MonoBehaviour
         playerTF.localScale = new Vector2(direction_H, 1f);
     }
 
-    private void attack(){
-        Rigidbody2D clone;
-        Vector3 attackPosition = new Vector3((transform.position.x+2*Mathf.Sign(transform.localScale.x)),transform.position.y,transform.position.z);
-        clone = Instantiate(Attack, attackPosition, transform.rotation);
-    }
+    // private void attack(){
+    //     Rigidbody2D clone;
+    //     Vector3 attackPosition = new Vector3((transform.position.x+2*Mathf.Sign(transform.localScale.x)),transform.position.y,transform.position.z);
+    //     clone = Instantiate(Attack, attackPosition, transform.rotation);
+    // }
 
 
     //State Controll functiion
