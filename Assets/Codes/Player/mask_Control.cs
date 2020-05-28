@@ -16,4 +16,11 @@ public class mask_Control : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag == "Mask1"){
+            Destroy(other.gameObject);
+            Player_Attributes.attackMode = 1;
+        }
+    }
 }

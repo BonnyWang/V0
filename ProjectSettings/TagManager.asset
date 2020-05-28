@@ -7,6 +7,7 @@ TagManager:
   - Mask
   - Attack
   - Enemy
+  - Mask1
   layers:
   - Default
   - TransparentFX

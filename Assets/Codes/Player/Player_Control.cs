@@ -5,9 +5,6 @@ using UnityEngine;
 public class Player_Control : MonoBehaviour
 {
 
-    //Access to other
-    Player player;
-
     //Variables
     //Movement
     float translation_H;
@@ -21,7 +18,7 @@ public class Player_Control : MonoBehaviour
     bool canInteract;
     bool moving_Forced_H;
     float direction_H;
-    bool wearMask;
+    // bool wearMask;
     //int whichMask
     bool underAttack;
     float time_Attacked;
@@ -50,7 +47,6 @@ public class Player_Control : MonoBehaviour
 
     void Start()
     {
-        player = GetComponent<Player>();
         playerRB = GetComponent<Rigidbody2D>();
         playerTF = GetComponent<Transform>();
         playerCL = GetComponent<BoxCollider2D>();
@@ -59,7 +55,7 @@ public class Player_Control : MonoBehaviour
 
         canJump = true;
         canInteract = true;
-        wearMask = false;
+        // wearMask = false;
         underAttack = false;
     }
 
@@ -197,10 +193,10 @@ public class Player_Control : MonoBehaviour
 
     //Interaction with Other Elements
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag == "Mask"){
+        if(other.gameObject.tag.Substring(0,4) == "Mask"){
             //Before Destroying, read the information
             Destroy(other.gameObject);
-            wearMask = true;
+            Player_Attributes.wearMask = true;
             playerAN.SetBool("Masked",true);
         }
         if(other.gameObject.tag == "Enemy"){
