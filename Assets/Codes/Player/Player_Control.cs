@@ -98,7 +98,7 @@ public class Player_Control : MonoBehaviour
 
         //TODO:Need to change?
         if(translation_V>0){
-            Jump();
+
             
         }
         
