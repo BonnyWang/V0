@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class health_Controll : MonoBehaviour
+public class Player_Health : MonoBehaviour
 {
     int health;
     int numberOfHearts;

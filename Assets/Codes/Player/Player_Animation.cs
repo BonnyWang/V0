@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Player_Animation : MonoBehaviour
 {
-    // Start is called before the first frame update
+    static Animator animator;
+    
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public static void changeAnim(string name,bool state){
+        animator.SetBool(name,state);
     }
 }

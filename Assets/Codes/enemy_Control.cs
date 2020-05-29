@@ -6,6 +6,7 @@ public class enemy_Control : MonoBehaviour
 {
     //Enemy Property
     int health;
+    
 
     void Start()
     {

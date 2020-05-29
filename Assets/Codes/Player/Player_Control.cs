@@ -188,12 +188,7 @@ public class Player_Control : MonoBehaviour
 
     //Interaction with Other Elements
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag.Substring(0,4) == "Mask"){
-            //Before Destroying, read the information
-            Destroy(other.gameObject);
-            Player_Attributes.wearMask = true;
-            playerAN.SetBool("Masked",true);
-        }
+        
         if(other.gameObject.tag == "Enemy"){
             Vector2 backOff = new Vector2(Mathf.Sign(transform.position.x-other.transform.position.x)*5,2);
             playerRB.AddForce( backOff,ForceMode2D.Impulse);
