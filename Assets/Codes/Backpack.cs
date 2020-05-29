@@ -5,8 +5,9 @@ using UnityEngine;
 public class Backpack : MonoBehaviour
 {
     // public static Backpack backPack0;
-    [SerializeField] static string[] items;
-    static int itemNum;
+    [SerializeField] int itemNum;
+    [SerializeField] string[] items;
+
     void Start()
     {
         // backPack0 = this;
@@ -15,7 +16,7 @@ public class Backpack : MonoBehaviour
     }
 
 
-    public static void addObject(string name){
+    public void addObject(string name){
         items[itemNum] = name;
         itemNum++;
     }
