@@ -19,6 +19,8 @@ public class enemy_Control : MonoBehaviour
         if(health <= 0){
             Destroy(gameObject);
         }
+
+        Enemy_Attributes.mAnimCon.flipSprite(transform);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

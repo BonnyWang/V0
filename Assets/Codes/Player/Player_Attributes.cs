@@ -17,6 +17,8 @@ public class Player_Attributes: MonoBehaviour
 
     //Interact
     public static GameObject collidewith;
+
+    //Base
     private void Start() {
         initialization();
     }

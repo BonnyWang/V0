@@ -21,4 +21,9 @@ public class AnimCon
         Vector2 backOff = new Vector2(Mathf.Sign(gameObject.transform.position.x-other.transform.position.x)*backOff_H,backOff_V);
         gameObject.GetComponent<Rigidbody2D>().AddForce( backOff,ForceMode2D.Impulse);
     }
+
+    public void flipSprite(Transform mtransform)
+    {
+        mtransform.localScale = new Vector2(Mathf.Sign(mtransform.gameObject.GetComponent<Rigidbody2D>().velocity.x), 1f);
+    }
 }

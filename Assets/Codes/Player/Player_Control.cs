@@ -9,6 +9,8 @@ public class Player_Control : MonoBehaviour
     //Movement
     float translation_H;
     float translation_V;
+    float velocity_H;
+    
     bool space_Jump;
     Vector2 updated_PlayerVelocity;
 
@@ -34,7 +36,7 @@ public class Player_Control : MonoBehaviour
     Animator playerAN;
     
     //Properties to be Adjusted
-    [SerializeField] float velocity_H = 1f;
+    [SerializeField] float ground_Velocity_H = 1f;
     [SerializeField] float inAir_Velocity_H = 1.5f;
     [SerializeField] float inAir_Velocity_V = 5f;
     [SerializeField] float recoveryTime = 1.5f;
@@ -84,7 +86,8 @@ public class Player_Control : MonoBehaviour
         if(Mathf.Abs(translation_H)>0){
             
             if(Mathf.Sign(playerRB.velocity.x) != Mathf.Sign(playerTF.localScale.x)){
-                flipSprite();
+                Player_Animation.mAnimCon.flipSprite(transform);
+                // flipSprite();
             }
 
             move();
@@ -124,11 +127,11 @@ public class Player_Control : MonoBehaviour
         }
     }
 
-    private void flipSprite()
-    {
-        direction_H = (Mathf.Sign(playerRB.velocity.x));
-        playerTF.localScale = new Vector2(direction_H, 1f);
-    }
+    // private void flipSprite()
+    // {
+    //     direction_H = (Mathf.Sign(playerRB.velocity.x));
+    //     playerTF.localScale = new Vector2(direction_H, 1f);
+    // }
 
     // private void attack(){
     //     Rigidbody2D clone;
@@ -166,10 +169,12 @@ public class Player_Control : MonoBehaviour
     
 
     void velocity_Control(){
-        inAir = onGround;
+        inAir = !onGround;
         //TODO:Inair detection? what else situation besides not touching ground
         if(inAir){
             velocity_H = inAir_Velocity_H;
+        }else{
+            velocity_H = ground_Velocity_H;
         }
     }
 
