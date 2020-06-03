@@ -166,6 +166,7 @@ public class Player_Control : MonoBehaviour
     
 
     void velocity_Control(){
+        inAir = onGround;
         //TODO:Inair detection? what else situation besides not touching ground
         if(inAir){
             velocity_H = inAir_Velocity_H;
@@ -183,6 +184,10 @@ public class Player_Control : MonoBehaviour
             Player_Animation.mAnimCon.changeAnim("Walking", false);
         }
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        Player_Attributes.collidewith = other.gameObject;
     }
 
     

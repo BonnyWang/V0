@@ -14,6 +14,9 @@ public class Player_Attributes: MonoBehaviour
     
     //Reference variable
     public static float timeAttacked;
+
+    //Interact
+    public static GameObject collidewith;
     private void Start() {
         initialization();
     }

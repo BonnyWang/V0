@@ -1045,8 +1045,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity_H: 2
-  inAir_Velocity_H: 1.5
-  inAir_Velocity_V: 5
+  inAir_Velocity_H: 5
+  inAir_Velocity_V: 9
   recoveryTime: 1
 --- !u!114 &1465246640
 MonoBehaviour:
@@ -1209,6 +1209,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd4f40e72c53974396dd65fcb6e2138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1465246633}
+  AttackDistance: 10
+--- !u!114 &1682707415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682707408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51d8a1a465505246ae62d957c16bfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  underAttack: 0
+  timeAttacked: 0
 --- !u!1001 &6452238107379727193
 PrefabInstance:
   m_ObjectHideFlags: 0
