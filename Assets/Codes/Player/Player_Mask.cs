@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class mask_Control : MonoBehaviour
+public class Player_Mask: MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,8 @@ public class mask_Control : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag.Substring(0,4) == "Mask"){
             Player_Attributes.wearMask = true;
-            Player_Animation.changeAnim("Masked",true);
+            // Player_Animation.changeAnim("Masked",true);
+            Player_Animation.mAnimCon.changeAnim("Masked",true);
             Destroy(other.gameObject);
         }
         

@@ -20,8 +20,8 @@ public class Player_Control : MonoBehaviour
     float direction_H;
     // bool wearMask;
     //int whichMask
-    bool underAttack;
-    float time_Attacked;
+    // bool underAttack;
+    // float time_Attacked;
     bool onGround;
     // float distance_ToEnemyAttaed;
 
@@ -54,7 +54,7 @@ public class Player_Control : MonoBehaviour
         canJump = true;
         canInteract = true;
         // wearMask = false;
-        underAttack = false;
+        // underAttack = false;
     }
 
     void Update()
@@ -151,14 +151,12 @@ public class Player_Control : MonoBehaviour
     }
 
     void detectCanIneract(){
-        if(underAttack){
-            // distance_ToEnemyAttaed = gameObject.transform.position.x - enemey_Attacked.transform.position.x;
-            
+        if(Player_Attributes.underAttack){
             canInteract = false;
             
-            if((Time.time - time_Attacked) > recoveryTime){
+            if((Time.time - Player_Attributes.timeAttacked) > recoveryTime){
                 canInteract = true;
-                underAttack = false;
+                Player_Attributes.underAttack = false;
             }
         }else{
             canInteract = true;
@@ -178,25 +176,16 @@ public class Player_Control : MonoBehaviour
 
         //TODO: inair and Jump condition should also be considered
         if(moving_Forced_H){
-            playerAN.SetBool("Walking", true);
+            Player_Animation.mAnimCon.changeAnim("Walking", true);
+            // playerAN.SetBool("Walking", true);
         }else{
-            playerAN.SetBool("Walking",false);
+            // playerAN.SetBool("Walking",false);
+            Player_Animation.mAnimCon.changeAnim("Walking", false);
         }
         
     }
 
-
-    //Interaction with Other Elements
-    private void OnCollisionEnter2D(Collision2D other) {
-        
-        if(other.gameObject.tag == "Enemy"){
-            Vector2 backOff = new Vector2(Mathf.Sign(transform.position.x-other.transform.position.x)*5,2);
-            playerRB.AddForce( backOff,ForceMode2D.Impulse);
-            underAttack = true;
-            time_Attacked = Time.time;
-            // enemey_Attacked = other.gameObject;
-        }
-    }
+    
 
     
 }

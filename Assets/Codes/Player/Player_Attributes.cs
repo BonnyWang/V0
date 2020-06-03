@@ -10,6 +10,10 @@ public class Player_Attributes: MonoBehaviour
 
     //Modes
     public static bool wearMask;
+    public static bool underAttack;
+    
+    //Reference variable
+    public static float timeAttacked;
     private void Start() {
         initialization();
     }
@@ -18,5 +22,6 @@ public class Player_Attributes: MonoBehaviour
         health = 50;
         attackMode = 0;
         wearMask = false;
+        underAttack = false;
     }
 }

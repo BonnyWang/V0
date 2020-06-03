@@ -5,19 +5,22 @@ using UnityEngine;
 public class Player_Animation : MonoBehaviour
 {
     static Animator animator;
+    public static AnimCon mAnimCon;
     
     void Start()
     {
         animator = GetComponent<Animator>();
+        mAnimCon = new AnimCon(animator);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    
+    private void OnCollisionEnter2D(Collision2D other) {
         
-    }
-
-    public static void changeAnim(string name,bool state){
-        animator.SetBool(name,state);
+        if(other.gameObject.tag == "Enemy"){
+            
+            mAnimCon.backBounce(gameObject,other.gameObject);
+            Player_Attributes.underAttack = true;
+            Player_Attributes.timeAttacked = Time.time;
+        }
     }
 }
