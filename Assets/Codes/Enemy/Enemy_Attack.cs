@@ -17,23 +17,32 @@ public class Enemy_Attack : MonoBehaviour
     }
 
     private void Update() {
-        detectPlayer();
+
+        if(detectPlayer() && mAttr.underAttack){
+            if( Mathf.Abs(Time.time - mAttr.timeAttacked) > mAttr.deboucePerdiod){
+                followPlayer();
+            }   
+        }else if(detectPlayer()){
+            followPlayer();
+        }
     }
     
     private void OnCollisionExit2D(Collision2D other) {
         if(other.gameObject.tag == "Player"){
             mAttr.mAnimCon.backBounce(gameObject,other.gameObject);
+            mAttr.underAttack = true;
+            mAttr.timeAttacked = Time.time;
             Debug.Log("Enemy Debounced");
         }
     }
 
-    void detectPlayer(){
+    bool detectPlayer(){
         if(Mathf.Abs(Vector3.Distance(player.transform.position,transform.position)) < AttackDistance){
             Debug.Log("Enemy Detected Player");
             mAttr.relativeDir = Mathf.Sign( player.transform.position.x - transform.position.x);
-            followPlayer();
-
+            return true;
         }
+        return false;
         
     }
 

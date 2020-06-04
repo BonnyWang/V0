@@ -1229,6 +1229,7 @@ MonoBehaviour:
   velocity_H: 0
   mRigidBody: {fileID: 0}
   relativeDir: 0
+  deboucePerdiod: 0
 --- !u!95 &1682707416
 Animator:
   serializedVersion: 3

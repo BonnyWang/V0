@@ -6,7 +6,7 @@ public class AnimCon
 {
     Animator mAnimator;
 
-    float backOff_H = 5f;
+    float backOff_H = 3f;
     float backOff_V = 2f;
     public AnimCon(Animator animator){
         mAnimator = animator;
