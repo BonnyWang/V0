@@ -19,7 +19,8 @@ public class AnimCon
     //Effects
     public void backBounce(GameObject gameObject, GameObject other){
         Vector2 backOff = new Vector2(Mathf.Sign(gameObject.transform.position.x-other.transform.position.x)*backOff_H,backOff_V);
-        gameObject.GetComponent<Rigidbody2D>().AddForce( backOff,ForceMode2D.Impulse);
+        Debug.Log("backoff"+backOff.x);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(backOff,ForceMode2D.Impulse);
     }
 
     public void flipSprite(Transform mtransform)

@@ -6,11 +6,13 @@ public class enemy_Control : MonoBehaviour
 {
     //Enemy Property
     int health;
+    Enemy_Attributes mAttr;
     
 
     void Start()
     {
         health = 9;
+        mAttr = GetComponent<Enemy_Attributes>();
     }
 
     // Update is called once per frame
@@ -20,7 +22,7 @@ public class enemy_Control : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Enemy_Attributes.mAnimCon.flipSprite(transform);
+        mAttr.mAnimCon.flipSprite(transform);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class Enemy_Attributes : Attributes
 {
-    public static AnimCon mAnimCon;
+    
+
+    public float relativeDir;
 
     private void Start() {
-        mAnimCon = new AnimCon(GetComponent<Animator>());
+        base_Initialization();
+        initialzation();
+
     }
+
+    void initialzation(){
+        velocity_H = 2f;
+    }
+
+    
 }
