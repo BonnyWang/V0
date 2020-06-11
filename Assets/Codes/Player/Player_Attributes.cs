@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Attributes: MonoBehaviour
+public class Player_Attributes: Attributes
 {
     //Basic Properties
     public static int health;
