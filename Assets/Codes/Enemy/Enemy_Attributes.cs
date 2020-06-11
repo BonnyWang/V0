@@ -18,6 +18,7 @@ public class Enemy_Attributes : Attributes
     void initialzation(){
         velocity_H = 2f;
         deboucePerdiod = 3f;
+        underAttack = false;
     }
 
     

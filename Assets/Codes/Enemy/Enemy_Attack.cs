@@ -21,6 +21,7 @@ public class Enemy_Attack : MonoBehaviour
         if(detectPlayer() && mAttr.underAttack){
             if( Mathf.Abs(Time.time - mAttr.timeAttacked) > mAttr.deboucePerdiod){
                 followPlayer();
+                mAttr.underAttack = false;
             }   
         }else if(detectPlayer()){
             followPlayer();
@@ -47,6 +48,8 @@ public class Enemy_Attack : MonoBehaviour
     }
 
     void followPlayer(){
+        Debug.Log("following");
+        Debug.Log(mAttr.relativeDir);
         mAttr.mRigidBody.velocity = new Vector2( mAttr.velocity_H*mAttr.relativeDir, mAttr.mRigidBody.velocity.y);
     }
 }
