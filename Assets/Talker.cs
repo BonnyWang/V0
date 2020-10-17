@@ -5,9 +5,11 @@ using UnityEngine;
 public class Talker : MonoBehaviour
 {
     [SerializeField] GameObject TalkingUI;
+   
     void Start()
     {
         TalkingUI.SetActive(false);
+        
     }
 
     // Update is called once per frame
