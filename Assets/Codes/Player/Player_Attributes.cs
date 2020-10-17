@@ -28,6 +28,33 @@ public class Player_Attributes: Attributes
     public static int hon=5;
     public static int agr=6;
 
+    public void changeFace(int a,int b)
+    {
+        if (a == 1)
+        {
+            emo += b;
+        }
+        if (a == 2)
+        {
+            con += b;
+        }
+        if (a == 3)
+        {
+            ext += b;
+        }
+        if (a == 4)
+        {
+            ope += b;
+        }
+        if (a == 5)
+        {
+            hon += b;
+        }
+        if (a == 6)
+        {
+            agr += b;
+        }
+    }
     private void Start() {
         initialization();
     }

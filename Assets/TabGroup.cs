@@ -19,6 +19,10 @@ public class TabGroup : MonoBehaviour
         }
 
         tabButtons.Add(button);
+        if (tabButtons.Count == 6)
+        {
+            onTabSelected(tabButtons[0]);
+        }
     }
 
 
