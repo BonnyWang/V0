@@ -22,7 +22,7 @@ public class enemy_Control : MonoBehaviour
             Destroy(gameObject);
         }
 
-        mAttr.mAnimCon.flipSprite(transform);
+        // mAttr.mAnimCon.flipSprite(transform);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
