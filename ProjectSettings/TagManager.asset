@@ -11,6 +11,7 @@ TagManager:
   - Mask2
   - AttackLong
   - item_Heart
+  - Talker
   layers:
   - Default
   - TransparentFX
