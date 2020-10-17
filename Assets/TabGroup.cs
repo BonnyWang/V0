@@ -10,10 +10,10 @@ public class TabGroup : MonoBehaviour
     public Sprite tabHovered;
     public Sprite tabSelected;
     public TabButton selectedTab;
-
+    public List<GameObject> TabPages;
     public void subscribe(TabButton button)
     {
-        if(tabButtons == null)
+        if (tabButtons == null)
         {
             tabButtons = new List<TabButton>();
         }
@@ -25,7 +25,10 @@ public class TabGroup : MonoBehaviour
     public void OnTabEnter(TabButton button)
     {
         ResetTabs();
-        button.background.sprite = tabHovered;
+        if (selectedTab == null || button != selectedTab)
+        {
+            button.background.sprite = tabHovered;
+        }
     }
 
     public  void onTabExit(TabButton button)
@@ -35,14 +38,28 @@ public class TabGroup : MonoBehaviour
 
     public void onTabSelected(TabButton button)
     {
+        selectedTab = button;
         ResetTabs();
         button.background.sprite = tabSelected;
+        int index = button.transform.GetSiblingIndex();
+        for(int i = 0; i < TabPages.Count; i++)
+        {
+            if (i == index)
+            {
+                TabPages[i].SetActive(true);
+            }
+            else
+            {
+                TabPages[i].SetActive(false);
+            }
+        }
     }
 
     public void ResetTabs()
     {
         foreach(TabButton button in tabButtons)
         {
+            if(selectedTab!=null &&button == selectedTab) { continue; }
             button.background.sprite = tabIdle;
         }
     }
