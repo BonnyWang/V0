@@ -19,6 +19,15 @@ public class Player_Attributes: Attributes
     public static GameObject collidewith;
 
     //Base
+
+    //six attribute(emo/con/ext/ope/hon/agr)
+    public static int emo=1;
+    public static int con=2;
+    public static int ext=3;
+    public static int ope=4;
+    public static int hon=5;
+    public static int agr=6;
+
     private void Start() {
         initialization();
     }
