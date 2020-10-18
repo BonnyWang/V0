@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class Talker : MonoBehaviour
     GameObject ReplyUI;
     [SerializeField] GameObject reply_Button;
 
+
     // Talking content variables
     Text content;
     [SerializeField] string[] talkScript = new string[1];
@@ -17,15 +19,18 @@ public class Talker : MonoBehaviour
     int talkLength;
     int replyLength;
     Talker mtalker;
-
     int optionChose;
+
+    //ITEM & STAT
+    [SerializeField] Backpack mbackpack;
+    public Player_Attributes PA;
+    [SerializeField] public itemstat[] itemgiven = new itemstat[100];
 
     void Start()
     {
         TalkingUI = transform.Find("Talk").gameObject;
         ReplyUI = transform.Find("Reply").gameObject;
         content = transform.Find("Talk").transform.Find("Text").gameObject.GetComponent<Text>();
-        
         hideUI();
         contentinit();
         
@@ -45,7 +50,9 @@ public class Talker : MonoBehaviour
                 // Display next talkScript
                 talkScriptIndex++;
                 content.text = talkScript[talkScriptIndex];
-            }else{
+            }
+            else if(TalkingUI.active)
+            {
                 showReply();
             }
         }
@@ -83,8 +90,10 @@ public class Talker : MonoBehaviour
             newOption.transform.position = new Vector3(newOption.transform.position.x,newOption.transform.position.y + (replyLength*100/2 - 100*i), 0);
             text = newOption.transform.Find("Text").gameObject.GetComponent<Text>();
             text.text = replyScipt[i];
+            int a = i;
+            newOption.GetComponent<Button>().onClick.AddListener(delegate {ButtonClicked(a); });
+            
 
-            newOption.GetComponent<Button>().onClick.AddListener(delegate {ButtonClicked(i); });
         }
     }
 
@@ -98,6 +107,23 @@ public class Talker : MonoBehaviour
 
     void ButtonClicked(int option){
 		optionChose = option;
+        Debug.Log("option " + option);
+        //emo
+        if (optionChose == 0)
+        {
+            PA.changeFace(1, 5);
+        }
+        //relic
+        if (optionChose == 1)
+        {
+            mbackpack.addObject(itemgiven[0]);
+            PA.changeFace(1, itemgiven[0].emo);
+            PA.changeFace(2, itemgiven[0].con);
+            PA.changeFace(3, itemgiven[0].ext);
+            PA.changeFace(4, itemgiven[0].ope);
+            PA.changeFace(5, itemgiven[0].hon);
+            PA.changeFace(6, itemgiven[0].agr);
+        }
         hideUI();
 	}
 }

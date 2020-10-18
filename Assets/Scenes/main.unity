@@ -10161,9 +10161,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
         type: 3}
+      propertyPath: itemgiven.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
       propertyPath: replyScipt.Array.data[3]
       value: Okok
       objectReference: {fileID: 0}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: replyScipt.Array.data[0]
+      value: i want emo
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: replyScipt.Array.data[1]
+      value: i want relic
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: mbackpack
+      value: 
+      objectReference: {fileID: 573659839}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: itemgiven.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 60fba67bd82e4ce48aa089d7cb329f88,
+        type: 2}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: PA
+      value: 
+      objectReference: {fileID: 1465246646}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 899947b9323a76841b42238e133708c8, type: 3}
 --- !u!224 &9090436025190515533
