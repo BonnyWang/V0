@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 3405471629378942557}
   - component: {fileID: 7949414316133045344}
   - component: {fileID: 848404266184476706}
-  - component: {fileID: 3324811417557580936}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -365,18 +364,3 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Hello
---- !u!114 &3324811417557580936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4852461783015686338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ad083b95db1abc4fa7b697183d28e4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sentence:
-  - Hello idiot!
-  - Let me guide you through this
