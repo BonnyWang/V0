@@ -20,11 +20,13 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     void UpdateUI()
     {
+        Debug.Log(backPack0.itemNum);
         Debug.Log("update relic");
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < backPack0.items.Length)
+            if (i < backPack0.itemNum)
             {
+                Debug.Log("ha"+i);
                 slots[i].Additem(backPack0.items[i]);
 
             }

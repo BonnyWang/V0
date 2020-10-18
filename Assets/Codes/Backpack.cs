@@ -5,7 +5,7 @@ using UnityEngine;
 public class Backpack : MonoBehaviour
 {
     public static Backpack backPack0;
-    [SerializeField] int itemNum;
+    [SerializeField] public int itemNum;
     [SerializeField] public itemstat[] items;
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
