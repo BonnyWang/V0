@@ -9,6 +9,7 @@ public class Talker : MonoBehaviour
     void Start()
     {
         TalkingUI.SetActive(false);
+        Time.timeScale = 1;
         
     }
 
@@ -18,11 +19,13 @@ public class Talker : MonoBehaviour
         if(Input.GetButtonDown("Cancel")){
             if(TalkingUI.active){
                 TalkingUI.SetActive(false);
+                Time.timeScale = 1;
             }
         }
     }
 
     void OnCollisionEnter2D(Collision2D other){
         TalkingUI.SetActive(true);
+        Time.timeScale = 0;
     }
 }
