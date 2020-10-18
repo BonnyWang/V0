@@ -50,6 +50,7 @@ public class Talker : MonoBehaviour
     void showUI(){
         TalkingUI.SetActive(true);
         Time.timeScale = 0;
+        contentinit();
     }
 
     void hideUI(){
