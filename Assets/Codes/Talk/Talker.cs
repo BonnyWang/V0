@@ -1,0 +1,103 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Talker : MonoBehaviour
+{
+    GameObject TalkingUI;
+    GameObject ReplyUI;
+    [SerializeField] GameObject reply_Button;
+
+    // Talking content variables
+    Text content;
+    [SerializeField] string[] talkScript = new string[1];
+    [SerializeField] string[] replyScipt = new string[1];
+    int talkScriptIndex;
+    int talkLength;
+    int replyLength;
+    Talker mtalker;
+
+    int optionChose;
+
+    void Start()
+    {
+        TalkingUI = transform.Find("Talk").gameObject;
+        ReplyUI = transform.Find("Reply").gameObject;
+        content = transform.Find("Talk").transform.Find("Text").gameObject.GetComponent<Text>();
+        
+        hideUI();
+        contentinit();
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetButtonDown("Cancel")){
+            if(TalkingUI.active){
+                hideUI();
+            }
+        }
+
+        if(Input.GetButtonDown("Submit")&& gameObject.active){
+            if(talkScriptIndex < (talkLength-1)){
+                // Display next talkScript
+                talkScriptIndex++;
+                content.text = talkScript[talkScriptIndex];
+            }else{
+                showReply();
+            }
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other){
+        showUI();
+    }
+
+    void showUI(){
+        TalkingUI.SetActive(true);
+        Time.timeScale = 0;
+
+        talkScriptIndex = 0;
+        content.text = talkScript[talkScriptIndex];
+    }
+
+    void hideUI(){
+        TalkingUI.SetActive(false);
+        Time.timeScale = 1;
+        hideReply();
+    }
+
+    void contentinit(){
+        talkScriptIndex = 0;
+        talkLength = talkScript.Length;
+        replyLength = replyScipt.Length;
+        content.text = talkScript[talkScriptIndex];
+
+        for (int i = 0; i < replyLength; i++)
+        {
+            GameObject newOption;
+            Text text;
+            newOption = Instantiate(reply_Button, ReplyUI.transform);
+            newOption.transform.position = new Vector3(newOption.transform.position.x,newOption.transform.position.y + (replyLength*100/2 - 100*i), 0);
+            text = newOption.transform.Find("Text").gameObject.GetComponent<Text>();
+            text.text = replyScipt[i];
+
+            newOption.GetComponent<Button>().onClick.AddListener(delegate {ButtonClicked(i); });
+        }
+    }
+
+    void showReply(){
+        ReplyUI.SetActive(true);
+    }
+
+    void hideReply(){
+        ReplyUI.SetActive(false);
+    }
+
+    void ButtonClicked(int option){
+		optionChose = option;
+        hideUI();
+	}
+}
