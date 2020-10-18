@@ -10,5 +10,5 @@ public class itemstat : ScriptableObject
     public int ope = 1;
     public int hon = 1;
     public int agr = 1;
-
+    public string info = "this is info";
 }
