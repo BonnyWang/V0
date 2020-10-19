@@ -159,7 +159,7 @@ public class Talker : MonoBehaviour
         //animation
         Debug.Log("show reply");
         LeanTween.alpha(shade.rectTransform, 0.8f, 0.5f);
-        LeanTween.scale(maintalk, new Vector3(1, 1, 1), 0.1f);
+        LeanTween.scale(maintalk, new Vector3(1, 1, 1), 0.1f).setDelay(0.2f);
         LeanTween.scale(maintalk, new Vector3(1, 1, 1), 0.1f).setDelay(0.5f).setOnComplete(timestop);
     }
 }
