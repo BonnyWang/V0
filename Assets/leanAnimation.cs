@@ -26,4 +26,10 @@ public class leanAnimation : MonoBehaviour
     {
         mAnimCon.changeAnim("isMoving", true);
     }
+
+    public void resetanimation()
+    {
+        Debug.Log("talkbox reset");
+        LeanTween.scale(gameObject, new Vector3(0, 1, 1), 1f);
+    }
 }

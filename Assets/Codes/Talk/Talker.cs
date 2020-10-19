@@ -52,6 +52,11 @@ public class Talker : MonoBehaviour
         if(Input.GetButtonDown("Cancel")){
             if(TalkingUI.active){
                 hideUI();
+                if (isAnimating)
+                {
+                    isAnimating = false;
+                    Resettalkbox();
+                }
             }
         }
 
@@ -67,6 +72,7 @@ public class Talker : MonoBehaviour
                 showReply();
                 if (!isAnimating)
                 {
+                    Debug.Log("start maintalk "+isAnimating);
                     ShowAnimation();
                 }
                
@@ -112,7 +118,8 @@ public class Talker : MonoBehaviour
             text = newOption.transform.Find("Text").gameObject.GetComponent<Text>();
             text.text = replyScipt[i];
             newOption.GetComponent<Button>().onClick.AddListener(delegate {ButtonClicked(b); });
-            
+            newOption.GetComponent<Button>().onClick.AddListener(delegate { Resettalkbox(); });
+            newOption.GetComponent<Button>().onClick.AddListener(delegate { Resetmaintalk(); });
 
         }
     }
@@ -151,5 +158,18 @@ public class Talker : MonoBehaviour
     void startMainAnimation()
     {
         TA.startanimation();
+    }
+
+    private void Resetmaintalk()
+    {
+        Debug.Log("reset maintalk");
+        LeanTween.scale(maintalk, new Vector3(0, 0.5f, 1), 1f);
+        isAnimating = false;
+        
+    }
+
+    private void Resettalkbox()
+    {
+        LA.resetanimation();
     }
 }
