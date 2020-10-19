@@ -20,11 +20,8 @@ public class Talker : MonoBehaviour
     int replyLength;
     Talker mtalker;
     int optionChose;
+    ReplyAction replyAction;
 
-    //ITEM & STAT
-    [SerializeField] Backpack mbackpack;
-    public Player_Attributes PA;
-    [SerializeField] public itemstat[] itemgiven = new itemstat[100];
 
     //animation
     public leanAnimation LA;
@@ -39,6 +36,8 @@ public class Talker : MonoBehaviour
         content = transform.Find("Talk").transform.Find("Text").gameObject.GetComponent<Text>();
         hideUI();
         contentinit();
+
+        replyAction = GetComponent<ReplyAction>();
 
         //animation
         LeanTween.scale(maintalk, new Vector3(0,0.5f,1), 1f);
@@ -104,14 +103,14 @@ public class Talker : MonoBehaviour
 
         for (int i = 0; i < replyLength; i++)
         {
+            int b = i;
             GameObject newOption;
             Text text;
             newOption = Instantiate(reply_Button, ReplyUI.transform);
             newOption.transform.position = new Vector3(newOption.transform.position.x,newOption.transform.position.y + (replyLength*100/2 - 100*i), 0);
             text = newOption.transform.Find("Text").gameObject.GetComponent<Text>();
             text.text = replyScipt[i];
-            int a = i;
-            newOption.GetComponent<Button>().onClick.AddListener(delegate {ButtonClicked(a); });
+            newOption.GetComponent<Button>().onClick.AddListener(delegate {ButtonClicked(b); });
             
 
         }
@@ -133,23 +132,7 @@ public class Talker : MonoBehaviour
 
     void ButtonClicked(int option){
 		optionChose = option;
-        Debug.Log("option " + option);
-        //emo
-        if (optionChose == 0)
-        {
-            PA.changeFace(1, 5);
-        }
-        //relic
-        if (optionChose == 1)
-        {
-            mbackpack.addObject(itemgiven[0]);
-            PA.changeFace(1, itemgiven[0].emo);
-            PA.changeFace(2, itemgiven[0].con);
-            PA.changeFace(3, itemgiven[0].ext);
-            PA.changeFace(4, itemgiven[0].ope);
-            PA.changeFace(5, itemgiven[0].hon);
-            PA.changeFace(6, itemgiven[0].agr);
-        }
+        replyAction.nextMove(option);
         hideUI();
 	}
 
