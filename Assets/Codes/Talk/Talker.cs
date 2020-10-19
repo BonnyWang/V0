@@ -9,6 +9,7 @@ public class Talker : MonoBehaviour
     GameObject TalkingUI;
     GameObject ReplyUI;
     [SerializeField] GameObject reply_Button;
+    [SerializeField] bool touchStart;
 
 
     // Talking content variables
@@ -81,10 +82,13 @@ public class Talker : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other){
-        showUI();
+        if(touchStart){
+            showUI();
+        }
+
     }
 
-    void showUI(){
+    public void showUI(){
         TalkingUI.SetActive(true);
         LA.appear();
         //Time.timeScale = 0;
@@ -140,7 +144,9 @@ public class Talker : MonoBehaviour
 
     void ButtonClicked(int option){
 		optionChose = option;
-        replyAction.nextMove(option);
+        if(replyAction != null){
+            replyAction.nextMove(option);
+        }
         hideUI();
 	}
 
