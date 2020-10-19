@@ -26,6 +26,12 @@ public class Talker : MonoBehaviour
     public Player_Attributes PA;
     [SerializeField] public itemstat[] itemgiven = new itemstat[100];
 
+    //animation
+    public leanAnimation LA;
+    public Image shade;
+    public GameObject maintalk;
+    bool isAnimating;
+
     void Start()
     {
         TalkingUI = transform.Find("Talk").gameObject;
@@ -33,7 +39,11 @@ public class Talker : MonoBehaviour
         content = transform.Find("Talk").transform.Find("Text").gameObject.GetComponent<Text>();
         hideUI();
         contentinit();
-        
+
+        //animation
+        LeanTween.scale(maintalk, new Vector3(0,0.5f,1), 1f);
+
+
     }
 
     // Update is called once per frame
@@ -53,7 +63,13 @@ public class Talker : MonoBehaviour
             }
             else if(TalkingUI.active)
             {
+
                 showReply();
+                if (!isAnimating)
+                {
+                    ShowAnimation();
+                }
+               
             }
         }
     }
@@ -64,7 +80,8 @@ public class Talker : MonoBehaviour
 
     void showUI(){
         TalkingUI.SetActive(true);
-        Time.timeScale = 0;
+        LA.appear();
+        //Time.timeScale = 0;
 
         talkScriptIndex = 0;
         content.text = talkScript[talkScriptIndex];
@@ -81,6 +98,9 @@ public class Talker : MonoBehaviour
         talkLength = talkScript.Length;
         replyLength = replyScipt.Length;
         content.text = talkScript[talkScriptIndex];
+        
+
+
 
         for (int i = 0; i < replyLength; i++)
         {
@@ -99,8 +119,14 @@ public class Talker : MonoBehaviour
 
     void showReply(){
         ReplyUI.SetActive(true);
-    }
 
+
+    }
+    void timestop()
+    {
+        Time.timeScale = 0;
+        Debug.Log("timestop");
+    }
     void hideReply(){
         ReplyUI.SetActive(false);
     }
@@ -126,4 +152,14 @@ public class Talker : MonoBehaviour
         }
         hideUI();
 	}
+
+    void ShowAnimation()
+    {
+        isAnimating = true;
+        //animation
+        Debug.Log("show reply");
+        LeanTween.alpha(shade.rectTransform, 0.8f, 0.5f);
+        LeanTween.scale(maintalk, new Vector3(1, 1, 1), 0.1f);
+        LeanTween.scale(maintalk, new Vector3(1, 1, 1), 0.1f).setDelay(0.5f).setOnComplete(timestop);
+    }
 }
