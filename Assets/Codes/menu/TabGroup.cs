@@ -42,6 +42,7 @@ public class TabGroup : MonoBehaviour
 
     public void onTabSelected(TabButton button)
     {
+        FindObjectOfType<audioManager>().PlaySound("buttonClicked");
         selectedTab = button;
         ResetTabs();
         button.background.sprite = tabSelected;

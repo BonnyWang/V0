@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class pausemenu : MonoBehaviour
 {
+    public audioManager AM;
     public static bool IsPaused = false;
     [SerializeField] public GameObject PauseMenu;
     // Update is called once per frame
@@ -19,6 +20,7 @@ public class pausemenu : MonoBehaviour
             else
             {
                 PauseGame();
+                AM.PlaySound("pausemenu");
             }
         }
     }
