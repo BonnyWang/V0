@@ -19,9 +19,11 @@ public class TabGroup : MonoBehaviour
         }
 
         tabButtons.Add(button);
+        //Debug.Log(button.name);
         if (tabButtons.Count == 6)
         {
-            onTabSelected(tabButtons[0]);
+            //Debug.Log("hello");
+            onTabSelected(tabButtons[2]);
         }
     }
 
@@ -41,7 +43,8 @@ public class TabGroup : MonoBehaviour
     }
 
     public void onTabSelected(TabButton button)
-    {
+    {   
+        
         FindObjectOfType<audioManager>().PlaySound("buttonClicked");
         selectedTab = button;
         ResetTabs();
@@ -51,6 +54,7 @@ public class TabGroup : MonoBehaviour
         {
             if (i == index)
             {
+                Debug.Log("tab" + i);
                 TabPages[i].SetActive(true);
             }
             else

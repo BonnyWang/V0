@@ -10,7 +10,7 @@ public class leanAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        LeanTween.scale(gameObject, new Vector3(0, 1, 1), 1f);
+        LeanTween.scale(gameObject, new Vector3(0.3f, 1, 1), 0.75f);
         Debug.Log("prepare");
         animator = GetComponent<Animator>();
         mAnimCon = new AnimCon(animator);
@@ -30,6 +30,6 @@ public class leanAnimation : MonoBehaviour
     public void resetanimation()
     {
         Debug.Log("talkbox reset");
-        LeanTween.scale(gameObject, new Vector3(0, 1, 1), 1f);
+        LeanTween.scale(gameObject, new Vector3(0.3f, 1, 1), 0.75f);
     }
 }
