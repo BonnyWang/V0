@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class Talker : MonoBehaviour
 {
     GameObject TalkingUI;
     GameObject ReplyUI;
+    [SerializeField] PlayableDirector CamDirector;
     [SerializeField] GameObject reply_Button;
     [SerializeField] bool touchStart;
+    [SerializeField] bool followingTalker;
 
 
     // Talking content variables
@@ -90,6 +93,11 @@ public class Talker : MonoBehaviour
 
     public void showUI(){
         TalkingUI.SetActive(true);
+        if(!followingTalker){
+            // TODO: automatically change the follow/Lookat to the transform of the talker
+            // CamDirector.transform.Find("vcamTalker").GetComponent<>
+            CamDirector.Play();
+        }
         LA.appear();
         //Time.timeScale = 0;
 
@@ -145,9 +153,20 @@ public class Talker : MonoBehaviour
     void ButtonClicked(int option){
 		optionChose = option;
         if(replyAction != null){
-            replyAction.nextMove(option);
+
+            if(replyAction.nextMove(option) < 0){
+                // No following talker needed, switch back to the main camera
+                CamDirector.Play();
+                hideUI();
+            }else{
+                // following talker, No need to switch camera
+                hideUI();
+            }
+        }else{
+            // No reply action script attached, whole conversation end
+            CamDirector.Play();
+            hideUI();
         }
-        hideUI();
 	}
 
     void ShowAnimation()

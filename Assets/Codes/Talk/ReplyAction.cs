@@ -4,5 +4,6 @@ using UnityEngine;
 
 public abstract class ReplyAction:MonoBehaviour
 {
-    public abstract void nextMove(int i);
+    // Return -1 when no following talker needed
+    public abstract int nextMove(int i);
 }
