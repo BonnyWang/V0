@@ -9,7 +9,7 @@ public class Talker : MonoBehaviour
 {
     GameObject TalkingUI;
     GameObject ReplyUI;
-    [SerializeField] PlayableDirector CamDirector;
+    [SerializeField] CamControl camControl;
     [SerializeField] GameObject reply_Button;
     [SerializeField] bool touchStart;
     [SerializeField] bool followingTalker;
@@ -93,10 +93,11 @@ public class Talker : MonoBehaviour
 
     public void showUI(){
         TalkingUI.SetActive(true);
+        ModeControl.mode_Talking = true;
         if(!followingTalker){
             // TODO: automatically change the follow/Lookat to the transform of the talker
             // CamDirector.transform.Find("vcamTalker").GetComponent<>
-            CamDirector.Play();
+            camControl.swichcamTalker(true);
         }
         LA.appear();
         //Time.timeScale = 0;
@@ -156,7 +157,8 @@ public class Talker : MonoBehaviour
 
             if(replyAction.nextMove(option) < 0){
                 // No following talker needed, switch back to the main camera
-                CamDirector.Play();
+                camControl.swichcamTalker(false);
+                ModeControl.mode_Talking = false;
                 hideUI();
             }else{
                 // following talker, No need to switch camera
@@ -164,7 +166,8 @@ public class Talker : MonoBehaviour
             }
         }else{
             // No reply action script attached, whole conversation end
-            CamDirector.Play();
+            camControl.swichcamTalker(false);
+            ModeControl.mode_Talking = false;
             hideUI();
         }
 	}
