@@ -12,6 +12,7 @@ TagManager:
   - AttackLong
   - item_Heart
   - Talker
+  - Rope
   layers:
   - Default
   - TransparentFX

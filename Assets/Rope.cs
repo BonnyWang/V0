@@ -20,12 +20,15 @@ public class Rope : MonoBehaviour
             rope[i].GetComponent<HingeJoint2D>().anchor = new Vector2(0,0.5f);
         }
 
+        // add extra mass to the end of the rope
         rope[Length-1].GetComponent<Rigidbody2D>().mass = 20;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void setChildRB(bool state){
+        Collider2D[] temp =  GetComponentsInChildren<Collider2D>();
+        for(int i = 0; i < temp.Length; i++){
+            temp[i].enabled = state;
+        }
     }
+
 }

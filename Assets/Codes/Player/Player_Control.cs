@@ -34,6 +34,7 @@ public class Player_Control : MonoBehaviour
     Transform playerTF;
     BoxCollider2D playerCL;
     Animator playerAN;
+    Player_Attributes mAttr;
     
     //Properties to be Adjusted
     [SerializeField] float ground_Velocity_H = 1f;
@@ -51,6 +52,7 @@ public class Player_Control : MonoBehaviour
         playerTF = GetComponent<Transform>();
         playerCL = GetComponent<BoxCollider2D>();
         playerAN = GetComponent<Animator>();
+        mAttr = GetComponent<Player_Attributes>();
 
 
         canJump = true;
@@ -104,7 +106,11 @@ public class Player_Control : MonoBehaviour
         }
         
         if(space_Jump){
-            Jump();
+            if(canJump){
+                Jump();
+            }else if(Player_Attributes.onRope){
+                mAttr.player_Interaction.detachHingJoint();
+            }
         }
 
 
@@ -120,11 +126,9 @@ public class Player_Control : MonoBehaviour
 
     void Jump()
     {
-        if(canJump)
-        {
-            updated_PlayerVelocity = new Vector2(playerRB.velocity.x, inAir_Velocity_V);
-            playerRB.velocity = updated_PlayerVelocity;
-        }
+        updated_PlayerVelocity = new Vector2(playerRB.velocity.x, inAir_Velocity_V);
+        playerRB.velocity = updated_PlayerVelocity;
+
     }
 
     // private void flipSprite()

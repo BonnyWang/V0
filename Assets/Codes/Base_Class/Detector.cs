@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Detector
+public class Detector:MonoBehaviour
 {
 
     //Using raycast or spherecast to determine 

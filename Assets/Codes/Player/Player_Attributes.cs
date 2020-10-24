@@ -11,12 +11,16 @@ public class Player_Attributes: Attributes
     //Modes
     public static bool wearMask;
     public static bool underAttack;
+    public static bool onRope;
     
     //Reference variable
     public static float timeAttacked;
 
     //Interact
     public static GameObject collidewith;
+
+    // 
+    public Player_Interaction player_Interaction;
 
     //Base
 
@@ -64,5 +68,8 @@ public class Player_Attributes: Attributes
         attackMode = 0;
         wearMask = false;
         underAttack = false;
+        onRope = false;
+
+        player_Interaction = GetComponent<Player_Interaction>();
     }
 }
