@@ -6248,7 +6248,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.45
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -6267,8 +6267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ground_Velocity_H: 5
-  inAir_Velocity_H: 1.5
-  inAir_Velocity_V: 5
+  inAir_Velocity_H: 3.5
+  inAir_Velocity_V: 7.5
   recoveryTime: 1
 --- !u!114 &1465246640
 MonoBehaviour:
