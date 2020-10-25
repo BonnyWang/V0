@@ -8,11 +8,10 @@ public class Rope : MonoBehaviour
     [SerializeField] int Length;
     [SerializeField] GameObject ropePiece;
 
-    bool constructed;
     // Start is called before the first frame update
     void Start()
     {
-        constructed = false;
+        
     }
 
     public void setChildRB(bool state){
@@ -23,7 +22,8 @@ public class Rope : MonoBehaviour
     }
 
     public void constructRope(){
-        if(!constructed){
+        if(transform.childCount < Length){
+            // prevent contruct multiple times
             GameObject[] rope = new GameObject[Length];
             rope[0] = Instantiate(ropePiece, transform);
             rope[0].GetComponent<HingeJoint2D>().connectedBody = transform.Find("RopePoint").GetComponent<Rigidbody2D>();
@@ -38,7 +38,6 @@ public class Rope : MonoBehaviour
 
             // add extra mass to the end of the rope
             rope[Length-1].GetComponent<Rigidbody2D>().mass = 20;  
-            constructed = true;
         } 
     }
 }

@@ -48,7 +48,7 @@ public class Player_Ability : MonoBehaviour
                 direction *= 10f;
             }
             
-            Debug.DrawRay(transform.position, direction,Color.green,1f);
+            Debug.DrawRay(transform.position, direction,Color.green,0.1f);
             hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity,LayerMask.GetMask("Element"));
             if(hit.collider != null){
                 selected = hit.transform;
