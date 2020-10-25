@@ -31,7 +31,7 @@ public class Rope : MonoBehaviour
             for(int i= 1; i < Length; i++){
                 rope[i] = Instantiate(ropePiece, transform);
                 rope[i].GetComponent<HingeJoint2D>().connectedBody = rope[i - 1].GetComponent<Rigidbody2D>();
-                rope[i].GetComponent<HingeJoint2D>().anchor = new Vector2(0,0.5f);
+                rope[i].GetComponent<HingeJoint2D>().anchor = new Vector2(0,0.2f);
 
                 Destroy(rope[i],10f);
             }
@@ -39,5 +39,14 @@ public class Rope : MonoBehaviour
             // add extra mass to the end of the rope
             rope[Length-1].GetComponent<Rigidbody2D>().mass = 20;  
         } 
+    }
+
+    public int childIndex(Transform child){
+        for(int i = 0; i < transform.childCount; i++){
+            if(transform.GetChild(i) == child){
+                return i;   
+            }
+        }
+        return -1;
     }
 }

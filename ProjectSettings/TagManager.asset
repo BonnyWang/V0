@@ -13,6 +13,7 @@ TagManager:
   - item_Heart
   - Talker
   - Rope
+  - Water
   layers:
   - Default
   - TransparentFX

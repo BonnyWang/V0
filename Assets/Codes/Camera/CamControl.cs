@@ -17,7 +17,7 @@ public class CamControl : MonoBehaviour
     {
         
     }
-    public void swichcamTalker(bool state){
+    public void setTalkerActive(bool state){
         if(state){
             vcamMain.SetActive(false);
             vcamTalker.SetActive(true);

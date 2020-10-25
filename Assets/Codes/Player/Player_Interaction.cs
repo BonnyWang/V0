@@ -8,6 +8,7 @@ public class Player_Interaction : MonoBehaviour
 
     HingeJoint2D playerHingeJoint;
     Rope rope;
+    Transform interactedObj;
 
     private void Start() {
         mAttr = GetComponent<Player_Attributes>();
@@ -16,7 +17,9 @@ public class Player_Interaction : MonoBehaviour
         if(other.gameObject.tag == "Rope"){
             if(!Player_Attributes.onRope){
                 // Add HingeJoint to player and connected it to the rope
-                playerHingeJoint = gameObject.AddComponent<HingeJoint2D>();
+                if(gameObject.GetComponent<HingeJoint2D>() == null){
+                    playerHingeJoint = gameObject.AddComponent<HingeJoint2D>();
+                }
                 playerHingeJoint.connectedBody = other.gameObject.GetComponent<Rigidbody2D>();
                 playerHingeJoint.autoConfigureConnectedAnchor = false;
                 playerHingeJoint.anchor = new Vector2(0,0);
@@ -24,6 +27,8 @@ public class Player_Interaction : MonoBehaviour
 
                 rope = other.transform.parent.GetComponent<Rope>();
                 rope.setChildRB(false);
+
+                interactedObj = other.transform;
 
                 Player_Attributes.onRope = true;
             }
@@ -43,4 +48,24 @@ public class Player_Interaction : MonoBehaviour
         // Set the climbed rope back to active
         rope.setChildRB(true);
     }
+
+    public void moveUpRope(){
+        playerHingeJoint = GetComponent<HingeJoint2D>();
+        int index = interactedObj.GetSiblingIndex();
+        if(index > 2){
+            interactedObj = interactedObj.transform.parent.GetChild(index - 1);
+        }
+        playerHingeJoint.connectedBody = interactedObj.GetComponent<Rigidbody2D>();
+    }
+
+    public void moveDownRope(){
+        playerHingeJoint = GetComponent<HingeJoint2D>();
+        int index = interactedObj.GetSiblingIndex();
+        if(index< (interactedObj.transform.parent.childCount - 1)){
+            interactedObj = interactedObj.transform.parent.GetChild(index + 1);
+        }
+        
+        playerHingeJoint.connectedBody = interactedObj.GetComponent<Rigidbody2D>();
+    }
+
 }

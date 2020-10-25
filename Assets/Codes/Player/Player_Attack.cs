@@ -31,11 +31,11 @@ public class Player_Attack : MonoBehaviour
                 attackPosition = new Vector3((transform.position.x+2*attackDirection),transform.position.y,transform.position.z);
 
                 if(Player_Attributes.attackMode == 1){
-                xattack();
+                    xattack();
                 }
 
                 if(Player_Attributes.attackMode == 2){
-                xlongattack();
+                    xlongattack();
                 }
             }
             

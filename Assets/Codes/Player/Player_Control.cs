@@ -100,8 +100,14 @@ public class Player_Control : MonoBehaviour
         }
 
         //TODO:Need to change?
-        if(translation_V>0){
-
+        if(translation_V != 0){
+            if(Player_Attributes.onRope){
+                if(translation_V == 1f){
+                    mAttr.player_Interaction.moveUpRope();
+                }else if(translation_V == -1f){
+                    mAttr.player_Interaction.moveDownRope();
+                }
+            }
             
         }
         

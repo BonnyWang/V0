@@ -56,6 +56,7 @@ public class Talker : MonoBehaviour
         if(Input.GetButtonDown("Cancel")){
             if(TalkingUI.active){
                 hideUI();
+                camControl.setTalkerActive(false);
                 if (isAnimating)
                 {
                     isAnimating = false;
@@ -86,7 +87,9 @@ public class Talker : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other){
         if(touchStart){
-            showUI();
+            if(other.gameObject.tag == "Player"){
+                showUI();
+            }
         }
 
     }
@@ -97,7 +100,7 @@ public class Talker : MonoBehaviour
         if(!followingTalker){
             // TODO: automatically change the follow/Lookat to the transform of the talker
             // CamDirector.transform.Find("vcamTalker").GetComponent<>
-            camControl.swichcamTalker(true);
+            camControl.setTalkerActive(true);
         }
         LA.appear();
         //Time.timeScale = 0;
@@ -157,7 +160,7 @@ public class Talker : MonoBehaviour
 
             if(replyAction.nextMove(option) < 0){
                 // No following talker needed, switch back to the main camera
-                camControl.swichcamTalker(false);
+                camControl.setTalkerActive(false);
                 ModeControl.mode_Talking = false;
                 hideUI();
             }else{
@@ -166,7 +169,7 @@ public class Talker : MonoBehaviour
             }
         }else{
             // No reply action script attached, whole conversation end
-            camControl.swichcamTalker(false);
+            camControl.setTalkerActive(false);
             ModeControl.mode_Talking = false;
             hideUI();
         }
