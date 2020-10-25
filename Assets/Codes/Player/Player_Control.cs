@@ -165,6 +165,8 @@ public class Player_Control : MonoBehaviour
                 canInteract = true;
                 Player_Attributes.underAttack = false;
             }
+        }else if(ModeControl.mode_Aiming){
+            canInteract = false;
         }else{
             canInteract = true;
         }

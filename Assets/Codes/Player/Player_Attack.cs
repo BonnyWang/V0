@@ -43,14 +43,16 @@ public class Player_Attack : MonoBehaviour
         }
     }
 
-    private void xattack(){
+    void xattack(){
         clone = Instantiate(xAttack, attackPosition, transform.rotation);
         clone.transform.parent = gameObject.transform;
     }
 
-    private void xlongattack(){
+    void xlongattack(){
         clone = Instantiate(shootAttack, attackPosition, transform.rotation);
         Vector2 shootForce = new Vector2(attackDirection*500, 100);
         clone.AddForce(shootForce);
     }
+
+    
 }

@@ -207,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &19089016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5975,6 +5975,7 @@ GameObject:
   - component: {fileID: 1465246646}
   - component: {fileID: 1465246645}
   - component: {fileID: 1465246647}
+  - component: {fileID: 1465246648}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6247,6 +6248,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   edgeRange: 0
+--- !u!114 &1465246648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465246633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e9497dface7ba44994d31e231f8de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1486799914
 GameObject:
   m_ObjectHideFlags: 0
@@ -7651,7 +7664,7 @@ GameObject:
   - component: {fileID: 1951860920}
   m_Layer: 0
   m_Name: Rope
-  m_TagString: Untagged
+  m_TagString: Rope
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8916,6 +8929,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RopePoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679053805766330154, guid: 764a7007e1cc88c4eb1edf8728060a63,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679053805766330154, guid: 764a7007e1cc88c4eb1edf8728060a63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Rope
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800551916354745102, guid: 764a7007e1cc88c4eb1edf8728060a63,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800551916354745102, guid: 764a7007e1cc88c4eb1edf8728060a63,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800551916354745102, guid: 764a7007e1cc88c4eb1edf8728060a63,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7178019272665307812, guid: 764a7007e1cc88c4eb1edf8728060a63,
         type: 3}
