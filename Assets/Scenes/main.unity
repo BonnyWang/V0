@@ -207,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &19089016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6248,7 +6248,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.45
+  m_GravityScale: 2.4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -6266,9 +6266,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6423fb58b3e9b954597214b178218a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ground_Velocity_H: 5
-  inAir_Velocity_H: 3.5
-  inAir_Velocity_V: 7.5
+  ground_Velocity_H: 6.5
+  inAir_Velocity_H: 6
+  inAir_Velocity_V: 11.5
   recoveryTime: 1
 --- !u!114 &1465246640
 MonoBehaviour:
@@ -14140,7 +14140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4969776307240508977
 RectTransform:
   m_ObjectHideFlags: 0
