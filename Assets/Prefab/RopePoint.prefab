@@ -128,8 +128,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 60
-    m_UpperAngle: -60
+    m_LowerAngle: -30
+    m_UpperAngle: 30
 --- !u!70 &5594854193763856146
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -158,4 +158,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127001939717e8742ba1aa56e2533631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}

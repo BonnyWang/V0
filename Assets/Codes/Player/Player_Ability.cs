@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Player_Ability : MonoBehaviour
 {
-    bool y_Aim_Down;
-    bool y_Aim_Up;
+    // bool y_Aim_Down;
+    // bool y_Aim_Up;
     Transform selected;
     [SerializeField] float angleTimeScale = 0.07f;
     [SerializeField] float angleTimePeriod = 5f;
-    [SerializeField] float elementRange = 50f;
+    [SerializeField] float abilityCoolingPeriod = 5f;
+    [SerializeField] float elementRange = 1f;
 
     // Element prefabs to throw
     Rigidbody2D clone;
@@ -26,45 +27,12 @@ public class Player_Ability : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        y_Aim_Down = Input.GetButtonDown("Aim");
-        if(y_Aim_Down){
-            ModeControl.mode_Aiming = true;
-            start_AngleTime();
+
+        if(!ModeControl.ability_Cooling){
+            inputDetect();
         }
 
-        y_Aim_Up = Input.GetButtonUp("Aim");
-        if(y_Aim_Up){
-            ModeControl.mode_Aiming = false;
-            if(selected == null){
-                stop_AngleTime();
-            }
-        }
-
-        if(selected != null){
-            // if(selected.parent!=null){
-            //     indicateChoice(selected, false);
-            // }
-            // selected.parent.Find("SpritePoint").localScale = new Vector3(1,1,1);
-            if(ModeControl.mode_Aiming ==false){
-                // 
-            }else{
-                // still in aiming mode the selected would be the new targe
-                // selected = null;
-                // indicateChoice(selected, true);
-            } 
-        }
-
-        if(Input.GetButtonDown("Skill")){
-            if(selected != null){
-                castAbility();
-            }
-        }
-
-        if(ModeControl.skill_Aiming && Input.GetButtonUp("Skill")){
-            ModeControl.skill_Aiming = false;
-            castAbility(true);
-        }
-
+        
 
         if(ModeControl.mode_Aiming){
             RaycastHit2D hit;
@@ -79,9 +47,8 @@ public class Player_Ability : MonoBehaviour
                 }else{
                     // selected is still the old one no action required
                 }
-                
-                // selected.parent.Find("SpritePoint").localScale = new Vector3(2,2,2);
             }else{
+                // does not hit anything or not element
                 if(selected != null){
                     indicateChoice(selected,true);
                 }
@@ -92,6 +59,33 @@ public class Player_Ability : MonoBehaviour
 
         if(ModeControl.skill_Aiming){
             getInputDirection(selected.transform);
+        }
+
+    }
+
+    void inputDetect(){
+        if(Input.GetButtonDown("Aim")){
+            ModeControl.mode_Aiming = true;
+            start_AngleTime();
+        }
+
+        if(Input.GetButtonUp("Aim")){
+            ModeControl.mode_Aiming = false;
+            if(selected == null){
+                stop_AngleTime();
+            }
+        }
+
+
+        if(Input.GetButtonDown("Skill")){
+            if(selected != null){
+                castAbility();
+            }
+        }
+
+        if(ModeControl.skill_Aiming && Input.GetButtonUp("Skill")){
+            ModeControl.skill_Aiming = false;
+            castAbility(true);
         }
 
     }
@@ -127,9 +121,6 @@ public class Player_Ability : MonoBehaviour
 
     void stop_AngleTime(){
         Time.timeScale = 1f;
-        // ModeControl.mode_Aiming = false;
-        // ModeControl.skill_Aiming = false;
-        // selected = null;
     }
 
     Vector2 getInputDirection(Transform origin){
@@ -146,9 +137,9 @@ public class Player_Ability : MonoBehaviour
         return direction;
             
     }
-    void indicateChoice(Transform ps, bool indicate){
+    void indicateChoice(Transform ps, bool psState){
         
-        if(indicate){
+        if(psState){
             ps.parent.Find("PS").GetComponent<ParticleSystem>().Emit(1);
             ps.parent.Find("PS").GetComponent<ParticleSystem>().Play();
             
@@ -158,7 +149,25 @@ public class Player_Ability : MonoBehaviour
     }
 
     IEnumerator countAngleTime(){
-        yield return new WaitForSeconds(angleTimePeriod);
-        stop_AngleTime();
+        yield return new WaitForSecondsRealtime(angleTimePeriod);
+        if(Time.timeScale != 1f){
+            // If user waited too long and did not cast ability
+            stop_AngleTime();
+            ModeControl.mode_Aiming = false;
+            ModeControl.skill_Aiming = false;
+            if(selected != null){
+                indicateChoice(selected, true);
+            }
+            selected = null;
+            ModeControl.ability_Cooling = true;
+        }
+
+        StartCoroutine(abilityCooling());
     }
+
+    IEnumerator abilityCooling(){
+        yield return new WaitForSecondsRealtime(abilityCoolingPeriod);
+        ModeControl.ability_Cooling = false;
+    }
+
 }

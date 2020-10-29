@@ -6610,7 +6610,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angleTimeScale: 0.1
   angleTimePeriod: 5
-  elementRange: 50
+  abilityCoolingPeriod: 5
+  elementRange: 3
   waterBall: {fileID: 7759554179602698989, guid: e0df99bd9c0597d41ba63bda5c8885e3,
     type: 3}
 --- !u!1 &1486799914
@@ -9387,6 +9388,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Anchor.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 583329611802944638, guid: 764a7007e1cc88c4eb1edf8728060a63,
+        type: 3}
+      propertyPath: m_AngleLimits.m_LowerAngle
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 583329611802944638, guid: 764a7007e1cc88c4eb1edf8728060a63,
+        type: 3}
+      propertyPath: m_AngleLimits.m_UpperAngle
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3679353527963211509, guid: 764a7007e1cc88c4eb1edf8728060a63,
         type: 3}
