@@ -24,7 +24,6 @@ public class Player_Control : MonoBehaviour
     //int whichMask
     // bool underAttack;
     // float time_Attacked;
-    bool onGround;
     // float distance_ToEnemyAttaed;
     float onRopeStep;
 
@@ -33,7 +32,7 @@ public class Player_Control : MonoBehaviour
     //Components
     Rigidbody2D playerRB;
     Transform playerTF;
-    BoxCollider2D playerCL;
+    Collider2D playerCL;
     Animator playerAN;
     Player_Attributes mAttr;
     
@@ -53,7 +52,7 @@ public class Player_Control : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerTF = GetComponent<Transform>();
-        playerCL = GetComponent<BoxCollider2D>();
+        playerCL = GetComponent<Collider2D>();
         playerAN = GetComponent<Animator>();
         mAttr = GetComponent<Player_Attributes>();
 
@@ -72,19 +71,18 @@ public class Player_Control : MonoBehaviour
         space_Jump = Input.GetButtonDown("Jump");
 
         //Mode Detect
-        detectState();
         velocity_Control();
         detectCanJump();
         animation_Control();
         detectCanIneract();
 
+    }
 
+    private void FixedUpdate() {
         //Interaction Control(can be a function later)
         if(canInteract){
             interactControll();
         }
-            
-
     }
 
     void interactControll(){
@@ -158,12 +156,9 @@ public class Player_Control : MonoBehaviour
 
 
     //State Controll functiion
-    void detectState(){
-        onGround = playerCL.IsTouchingLayers(LayerMask.GetMask("Ground"));
-    }
 
     void detectCanJump(){
-        if(!onGround){
+        if(!mAttr.isOnGround){
             canJump = false;
         }else{
             canJump = true;
@@ -188,7 +183,7 @@ public class Player_Control : MonoBehaviour
     
 
     void velocity_Control(){
-        inAir = !(onGround|Player_Attributes.onRope);
+        inAir = !(mAttr.isOnGround|Player_Attributes.onRope);
         //TODO:Inair detection? what else situation besides not touching ground
         if(inAir){
             velocity_H = inAir_Velocity_H;
@@ -216,7 +211,4 @@ public class Player_Control : MonoBehaviour
         Player_Attributes.collidewith = other.gameObject;
     }
 
-    
-
-    
 }
