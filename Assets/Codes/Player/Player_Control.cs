@@ -26,6 +26,7 @@ public class Player_Control : MonoBehaviour
     // float time_Attacked;
     bool onGround;
     // float distance_ToEnemyAttaed;
+    float onRopeStep;
 
 
 
@@ -39,7 +40,9 @@ public class Player_Control : MonoBehaviour
     //Properties to be Adjusted
     [SerializeField] float ground_Velocity_H = 1f;
     [SerializeField] float inAir_Velocity_H = 1.5f;
+    [SerializeField] float onRope_Velocity_H = 5f;
     [SerializeField] float inAir_Velocity_V = 5f;
+    [SerializeField] float onRope_Veolocity_V = 5f;
     [SerializeField] float recoveryTime = 1.5f;
     // [SerializeField] bool canJump;
 
@@ -100,12 +103,16 @@ public class Player_Control : MonoBehaviour
         }
 
         //TODO:Need to change?
-        if(translation_V != 0){
+        if(translation_V != 0 && Mathf.Abs(translation_H) < 0.5){
             if(Player_Attributes.onRope){
-                if(translation_V == 1f){
+                // Control the on the rope
+                onRopeStep += translation_V;
+                if(onRopeStep > onRope_Veolocity_V){
                     mAttr.player_Interaction.moveUpRope();
-                }else if(translation_V == -1f){
+                    onRopeStep = 0;
+                }else if(onRopeStep < -onRope_Veolocity_V){
                     mAttr.player_Interaction.moveDownRope();
+                    onRopeStep = 0;
                 }
             }
             
@@ -171,7 +178,7 @@ public class Player_Control : MonoBehaviour
                 canInteract = true;
                 Player_Attributes.underAttack = false;
             }
-        }else if(ModeControl.mode_Aiming){
+        }else if(ModeControl.mode_Aiming | ModeControl.skill_Aiming){
             canInteract = false;
         }else{
             canInteract = true;
@@ -181,10 +188,12 @@ public class Player_Control : MonoBehaviour
     
 
     void velocity_Control(){
-        inAir = !onGround;
+        inAir = !(onGround|Player_Attributes.onRope);
         //TODO:Inair detection? what else situation besides not touching ground
         if(inAir){
             velocity_H = inAir_Velocity_H;
+        }else if(Player_Attributes.onRope){
+            velocity_H = onRope_Velocity_H;
         }else{
             velocity_H = ground_Velocity_H;
         }
