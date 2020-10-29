@@ -11,6 +11,7 @@ public class Player_Ability : MonoBehaviour
     [SerializeField] float angleTimePeriod = 5f;
     [SerializeField] float abilityCoolingPeriod = 5f;
     [SerializeField] float elementRange = 1f;
+    [SerializeField] GameObject angelTimeShade;
 
     // Element prefabs to throw
     Rigidbody2D clone;
@@ -117,10 +118,12 @@ public class Player_Ability : MonoBehaviour
     void start_AngleTime(){
         Time.timeScale = angleTimeScale;
         StartCoroutine(countAngleTime());
+        angelTimeShade.SetActive(true);
     }
 
     void stop_AngleTime(){
         Time.timeScale = 1f;
+        angelTimeShade.SetActive(false);
     }
 
     Vector2 getInputDirection(Transform origin){
