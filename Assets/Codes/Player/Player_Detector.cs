@@ -38,7 +38,7 @@ public class Player_Detector : Detector
     }
 
     private void OnCollisionExit2D(Collision2D other) {
-        if(other.gameObject.layer == LayerMask.GetMask("Ground")){
+        if(LayerMask.LayerToName(other.gameObject.layer ) == "Ground"){
              mAttr.isOnGround = false;
         }
     }

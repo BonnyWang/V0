@@ -76,10 +76,6 @@ public class Player_Control : MonoBehaviour
         animation_Control();
         detectCanIneract();
 
-    }
-
-    private void FixedUpdate() {
-        //Interaction Control(can be a function later)
         if(canInteract){
             interactControll();
         }
@@ -117,10 +113,10 @@ public class Player_Control : MonoBehaviour
         }
         
         if(space_Jump){
-            if(canJump){
-                Jump();
-            }else if(Player_Attributes.onRope){
+            if(Player_Attributes.onRope){
                 mAttr.player_Interaction.detachHingJoint();
+            }else if(canJump){
+                Jump();
             }
         }
 
