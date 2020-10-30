@@ -24,22 +24,24 @@ public class Player_Control : MonoBehaviour
     //int whichMask
     // bool underAttack;
     // float time_Attacked;
-    bool onGround;
     // float distance_ToEnemyAttaed;
+    float onRopeStep;
 
 
 
     //Components
     Rigidbody2D playerRB;
     Transform playerTF;
-    BoxCollider2D playerCL;
+    Collider2D playerCL;
     Animator playerAN;
     Player_Attributes mAttr;
     
     //Properties to be Adjusted
     [SerializeField] float ground_Velocity_H = 1f;
     [SerializeField] float inAir_Velocity_H = 1.5f;
+    [SerializeField] float onRope_Velocity_H = 5f;
     [SerializeField] float inAir_Velocity_V = 5f;
+    [SerializeField] float onRope_Veolocity_V = 5f;
     [SerializeField] float recoveryTime = 1.5f;
     // [SerializeField] bool canJump;
 
@@ -50,7 +52,7 @@ public class Player_Control : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerTF = GetComponent<Transform>();
-        playerCL = GetComponent<BoxCollider2D>();
+        playerCL = GetComponent<Collider2D>();
         playerAN = GetComponent<Animator>();
         mAttr = GetComponent<Player_Attributes>();
 
@@ -69,19 +71,14 @@ public class Player_Control : MonoBehaviour
         space_Jump = Input.GetButtonDown("Jump");
 
         //Mode Detect
-        detectState();
         velocity_Control();
         detectCanJump();
         animation_Control();
         detectCanIneract();
 
-
-        //Interaction Control(can be a function later)
         if(canInteract){
             interactControll();
         }
-            
-
     }
 
     void interactControll(){
@@ -100,22 +97,26 @@ public class Player_Control : MonoBehaviour
         }
 
         //TODO:Need to change?
-        if(translation_V != 0){
+        if(translation_V != 0 && Mathf.Abs(translation_H) < 0.5){
             if(Player_Attributes.onRope){
-                if(translation_V == 1f){
+                // Control the on the rope
+                onRopeStep += translation_V;
+                if(onRopeStep > onRope_Veolocity_V){
                     mAttr.player_Interaction.moveUpRope();
-                }else if(translation_V == -1f){
+                    onRopeStep = 0;
+                }else if(onRopeStep < -onRope_Veolocity_V){
                     mAttr.player_Interaction.moveDownRope();
+                    onRopeStep = 0;
                 }
             }
             
         }
         
         if(space_Jump){
-            if(canJump){
-                Jump();
-            }else if(Player_Attributes.onRope){
+            if(Player_Attributes.onRope){
                 mAttr.player_Interaction.detachHingJoint();
+            }else if(canJump){
+                Jump();
             }
         }
 
@@ -151,12 +152,9 @@ public class Player_Control : MonoBehaviour
 
 
     //State Controll functiion
-    void detectState(){
-        onGround = playerCL.IsTouchingLayers(LayerMask.GetMask("Ground"));
-    }
 
     void detectCanJump(){
-        if(!onGround){
+        if(!mAttr.isOnGround){
             canJump = false;
         }else{
             canJump = true;
@@ -171,7 +169,7 @@ public class Player_Control : MonoBehaviour
                 canInteract = true;
                 Player_Attributes.underAttack = false;
             }
-        }else if(ModeControl.mode_Aiming){
+        }else if(ModeControl.mode_Aiming | ModeControl.skill_Aiming){
             canInteract = false;
         }else{
             canInteract = true;
@@ -181,10 +179,12 @@ public class Player_Control : MonoBehaviour
     
 
     void velocity_Control(){
-        inAir = !onGround;
+        inAir = !(mAttr.isOnGround|Player_Attributes.onRope);
         //TODO:Inair detection? what else situation besides not touching ground
         if(inAir){
             velocity_H = inAir_Velocity_H;
+        }else if(Player_Attributes.onRope){
+            velocity_H = onRope_Velocity_H;
         }else{
             velocity_H = ground_Velocity_H;
         }
@@ -207,7 +207,4 @@ public class Player_Control : MonoBehaviour
         Player_Attributes.collidewith = other.gameObject;
     }
 
-    
-
-    
 }

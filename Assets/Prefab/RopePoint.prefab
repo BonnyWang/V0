@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3679353527963211509}
   - component: {fileID: 583329611802944638}
   - component: {fileID: 5594854193763856146}
+  - component: {fileID: 7345740463482077821}
   m_Layer: 0
   m_Name: RopePoint
   m_TagString: Rope
@@ -125,10 +126,10 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+    m_LowerAngle: -30
+    m_UpperAngle: 30
 --- !u!70 &5594854193763856146
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -145,3 +146,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.16, y: 1.19}
   m_Direction: 0
+--- !u!114 &7345740463482077821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4679053805766330154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127001939717e8742ba1aa56e2533631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

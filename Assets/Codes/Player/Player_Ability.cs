@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Player_Ability : MonoBehaviour
 {
-    bool y_Aim_Down;
-    bool y_Aim_Up;
+    // bool y_Aim_Down;
+    // bool y_Aim_Up;
     Transform selected;
-    [SerializeField] float angleTimeScale = 0.1f;
+    [SerializeField] float angleTimeScale = 0.07f;
     [SerializeField] float angleTimePeriod = 5f;
+    [SerializeField] float abilityCoolingPeriod = 5f;
+    [SerializeField] float elementRange = 1f;
+    [SerializeField] GameObject angelTimeShade;
 
     // Element prefabs to throw
     Rigidbody2D clone;
@@ -25,77 +28,149 @@ public class Player_Ability : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        y_Aim_Down = Input.GetButtonDown("Aim");
-        if(y_Aim_Down){
-            ModeControl.mode_Aiming = true;
-            start_AngleTime();
+
+        if(!ModeControl.ability_Cooling){
+            inputDetect();
         }
 
-        y_Aim_Up = Input.GetButtonUp("Aim");
-        if(y_Aim_Up){
-            ModeControl.mode_Aiming = false;
-            stop_AngleTime();
-        }
-
-        if(selected != null){
-            selected.localScale = new Vector3(1,1,1);
-            if(ModeControl.mode_Aiming ==false){
-                // 
-            }else{
-                // still in aiming mode the selected would be the new targe
-                selected = null;
-            } 
-        }
-
-        if(Input.GetButtonDown("Skill")){
-            if(selected != null){
-                castAbility(selected.gameObject);
-            }
-        }
-
+        
 
         if(ModeControl.mode_Aiming){
-            Ray mouseray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit;
-            Vector2 direction = (Vector2)(mouseray.origin - transform.position);    
-            if((Input.GetAxis("Horizontal") != 0)|(Input.GetAxis("Vertical") != 0)){
-                // if from controller;
-                direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-                // this is just for debug purpose to make the ray more visible
-                direction *= 10f;
-            }
-            
-            Debug.DrawRay(transform.position, direction,Color.green);
-            hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity,LayerMask.GetMask("Element"));
-            if(hit.collider != null){
-                selected = hit.transform;
-                selected.localScale = new Vector3(2,2,2);
-            }           
+            hit = Physics2D.Raycast(transform.position, getInputDirection(transform), elementRange,LayerMask.GetMask("Element"));
+            if(hit.collider != null && hit.transform.parent.GetComponent<ElementControl>().canUse){
+                if(selected != hit.transform){
+                    if(selected != null){
+                        indicateChoice(selected, true);
+                    }
+                    selected = hit.transform;
+                    indicateChoice(selected,false);
+                }else{
+                    // selected is still the old one no action required
+                }
+            }else{
+                // does not hit anything or not element
+                if(selected != null){
+                    indicateChoice(selected,true);
+                }
 
+                selected = null;
+            }           
+        }
+
+        if(ModeControl.skill_Aiming){
+            getInputDirection(selected.transform);
         }
 
     }
 
-    void castAbility(GameObject selected){
-        if(selected.transform.tag == "Rope"){
-            selected.transform.parent.GetComponent<Rope>().constructRope();
-            Debug.Log("ConstructRope");
+    void inputDetect(){
+        if(Input.GetButtonDown("Aim")){
+            ModeControl.mode_Aiming = true;
+            start_AngleTime();
         }
 
-        if(selected.transform.tag == "Water"){
-            attackDirection = Mathf.Sign(transform.localScale.x);
-            attackPosition = new Vector3((transform.position.x+2*attackDirection),transform.position.y,transform.position.z);
-            clone = Instantiate(waterBall, attackPosition, transform.rotation);
-            Vector2 shootForce = new Vector2(attackDirection*500, 100);
-            clone.AddForce(shootForce);
+        if(Input.GetButtonUp("Aim")){
+            ModeControl.mode_Aiming = false;
+            if(selected == null){
+                stop_AngleTime();
+            }
+        }
+
+
+        if(Input.GetButtonDown("Skill")){
+            if(selected != null){
+                castAbility();
+            }
+        }
+
+        if(ModeControl.skill_Aiming && Input.GetButtonUp("Skill")){
+            ModeControl.skill_Aiming = false;
+            castAbility(true);
+        }
+
+    }
+
+    void castAbility(bool release = false){
+        if(selected.transform.tag == "Rope"){
+            selected.parent.GetComponent<Rope>().constructRope();
+            Debug.Log("ConstructRope");
+            selected.parent.GetComponent<ElementControl>().usedElement();
+            selected = null;
+            stop_AngleTime();
+        }else if(selected.transform.tag == "Water"){
+            if(release == true){
+                attackPosition = new Vector3((selected.position.x+2*Mathf.Sign(getInputDirection(selected).x)),selected.position.y,selected.position.z);
+                clone = Instantiate(waterBall, attackPosition, transform.rotation);
+                Vector2 shootForce = getInputDirection(selected.transform)*100;
+                clone.AddForce(shootForce);
+                stop_AngleTime();
+                selected.parent.GetComponent<ElementControl>().usedElement();
+                selected = null;
+            }else{
+                ModeControl.skill_Aiming = true;
+            }
+        }else{
+            stop_AngleTime();
         }
     }
 
     void start_AngleTime(){
         Time.timeScale = angleTimeScale;
+        StartCoroutine(countAngleTime());
+        angelTimeShade.SetActive(true);
     }
 
     void stop_AngleTime(){
         Time.timeScale = 1f;
+        angelTimeShade.SetActive(false);
     }
+
+    Vector2 getInputDirection(Transform origin){
+        Ray mouseray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector2 direction = (Vector2)(mouseray.origin - origin.position);    
+        if((Input.GetAxis("Horizontal") != 0)|(Input.GetAxis("Vertical") != 0)){
+            // if from controller;
+            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            // this is just for debug purpose to make the ray more visible
+            direction *= 10f;
+        }
+        
+        Debug.DrawRay(origin.position, direction,Color.green);
+        return direction;
+            
+    }
+    void indicateChoice(Transform ps, bool psState){
+        
+        if(psState){
+            ps.parent.Find("PS").GetComponent<ParticleSystem>().Emit(1);
+            ps.parent.Find("PS").GetComponent<ParticleSystem>().Play();
+            
+        }else{
+            ps.parent.Find("PS").GetComponent<ParticleSystem>().Pause();
+        }
+    }
+
+    IEnumerator countAngleTime(){
+        yield return new WaitForSecondsRealtime(angleTimePeriod);
+        if(Time.timeScale != 1f){
+            // If user waited too long and did not cast ability
+            stop_AngleTime();
+            ModeControl.mode_Aiming = false;
+            ModeControl.skill_Aiming = false;
+            if(selected != null){
+                indicateChoice(selected, true);
+            }
+            selected = null;
+            ModeControl.ability_Cooling = true;
+        }
+
+        StartCoroutine(abilityCooling());
+    }
+
+    IEnumerator abilityCooling(){
+        yield return new WaitForSecondsRealtime(abilityCoolingPeriod);
+        ModeControl.ability_Cooling = false;
+    }
+
 }

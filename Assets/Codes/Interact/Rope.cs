@@ -16,7 +16,7 @@ public class Rope : MonoBehaviour
 
     public void setChildRB(bool state){
         Collider2D[] temp =  GetComponentsInChildren<Collider2D>();
-        for(int i = 0; i < temp.Length; i++){
+        for(int i = 1; i < temp.Length; i++){
             temp[i].enabled = state;
         }
     }
@@ -26,7 +26,8 @@ public class Rope : MonoBehaviour
             // prevent contruct multiple times
             GameObject[] rope = new GameObject[Length];
             rope[0] = Instantiate(ropePiece, transform);
-            rope[0].GetComponent<HingeJoint2D>().connectedBody = transform.Find("RopePoint").GetComponent<Rigidbody2D>();
+            rope[0].GetComponent<HingeJoint2D>().connectedBody = transform.Find("SpritePoint").GetComponent<Rigidbody2D>();
+            Destroy(rope[0],10f);
             
             for(int i= 1; i < Length; i++){
                 rope[i] = Instantiate(ropePiece, transform);
@@ -37,7 +38,7 @@ public class Rope : MonoBehaviour
             }
 
             // add extra mass to the end of the rope
-            rope[Length-1].GetComponent<Rigidbody2D>().mass = 20;  
+            rope[Length-1].GetComponent<Rigidbody2D>().mass = 10f;  
         } 
     }
 

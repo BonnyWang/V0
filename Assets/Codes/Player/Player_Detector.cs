@@ -30,15 +30,15 @@ public class Player_Detector : Detector
     private void OnCollisionEnter2D(Collision2D other) {
         if(LayerMask.LayerToName(other.gameObject.layer ) == "Ground"){
              mAttr.isOnGround = true;
-             if(Player_Attributes.onRope){
-                 Player_Attributes.onRope = false;
-                 mAttr.player_Interaction.setRopeActive();
+             if(mAttr.player_Interaction.discardRope != null){
+                mAttr.player_Interaction.clearDiscardRope();
+                mAttr.player_Interaction.setRopeActive();
              }
         }
     }
 
     private void OnCollisionExit2D(Collision2D other) {
-        if(other.gameObject.layer == LayerMask.GetMask("Ground")){
+        if(LayerMask.LayerToName(other.gameObject.layer ) == "Ground"){
              mAttr.isOnGround = false;
         }
     }

@@ -71,5 +71,6 @@ public class Player_Attributes: Attributes
         onRope = false;
 
         player_Interaction = GetComponent<Player_Interaction>();
+        mCollider = GetComponent<Collider2D>();
     }
 }

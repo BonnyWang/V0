@@ -9,13 +9,14 @@ public class Player_Interaction : MonoBehaviour
     HingeJoint2D playerHingeJoint;
     Rope rope;
     Transform interactedObj;
+    public Transform discardRope;
 
     private void Start() {
         mAttr = GetComponent<Player_Attributes>();
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Rope"){
-            if(!Player_Attributes.onRope){
+            if(!Player_Attributes.onRope && discardRope != other.transform.parent){
                 // Add HingeJoint to player and connected it to the rope
                 if(gameObject.GetComponent<HingeJoint2D>() == null){
                     playerHingeJoint = gameObject.AddComponent<HingeJoint2D>();
@@ -37,10 +38,13 @@ public class Player_Interaction : MonoBehaviour
 
     }
 
+
     public void detachHingJoint(){
         playerHingeJoint = GetComponent<HingeJoint2D>();
         if(playerHingeJoint != null){
+            discardRope = playerHingeJoint.connectedBody.transform.parent;
             Destroy(playerHingeJoint);
+            Player_Attributes.onRope = false;
         }
     }
 
@@ -66,6 +70,10 @@ public class Player_Interaction : MonoBehaviour
         }
         
         playerHingeJoint.connectedBody = interactedObj.GetComponent<Rigidbody2D>();
+    }
+
+    public void clearDiscardRope(){
+        discardRope = null;
     }
 
 }
