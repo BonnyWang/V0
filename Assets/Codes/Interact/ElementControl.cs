@@ -6,6 +6,7 @@ public class ElementControl : MonoBehaviour
 {
     public bool canUse;
     ParticleSystem particleSystem;
+    [SerializeField] float coolingTime;
     
     private void Start() {
         canUse = true;
@@ -18,7 +19,7 @@ public class ElementControl : MonoBehaviour
     }
 
     IEnumerator reActive(){
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(coolingTime);
         Debug.Log("can be Reuse");
         canUse = true;
         particleSystem.Emit(1);

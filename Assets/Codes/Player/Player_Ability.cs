@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Player_Ability : MonoBehaviour
 {
-    // bool y_Aim_Down;
-    // bool y_Aim_Up;
+
     Transform selected;
     [SerializeField] float angleTimeScale = 0.07f;
     [SerializeField] float angleTimePeriod = 5f;
@@ -13,16 +12,13 @@ public class Player_Ability : MonoBehaviour
     [SerializeField] float elementRange = 1f;
     [SerializeField] GameObject angelTimeShade;
 
-    // Element prefabs to throw
-    Rigidbody2D clone;
-    [SerializeField] Rigidbody2D waterBall;
 
-    // If ability is direction need 
-    float attackDirection;
-    Vector3 attackPosition;
+    Player_Attributes mAttr;
+
     void Start()
     {
         selected = null;
+        mAttr = GetComponent<Player_Attributes>();
     }
 
     // Update is called once per frame
@@ -33,33 +29,13 @@ public class Player_Ability : MonoBehaviour
             inputDetect();
         }
 
-        
 
         if(ModeControl.mode_Aiming){
-            RaycastHit2D hit;
-            hit = Physics2D.Raycast(transform.position, getInputDirection(transform), elementRange,LayerMask.GetMask("Element"));
-            if(hit.collider != null && hit.transform.parent.GetComponent<ElementControl>().canUse){
-                if(selected != hit.transform){
-                    if(selected != null){
-                        indicateChoice(selected, true);
-                    }
-                    selected = hit.transform;
-                    indicateChoice(selected,false);
-                }else{
-                    // selected is still the old one no action required
-                }
-            }else{
-                // does not hit anything or not element
-                if(selected != null){
-                    indicateChoice(selected,true);
-                }
-
-                selected = null;
-            }           
+            selecting();
         }
 
         if(ModeControl.skill_Aiming){
-            getInputDirection(selected.transform);
+            selected.parent.GetComponent<Element>().showDirection();
         }
 
     }
@@ -74,6 +50,8 @@ public class Player_Ability : MonoBehaviour
             ModeControl.mode_Aiming = false;
             if(selected == null){
                 stop_AngleTime();
+            }else{
+                ModeControl.skill_Aiming = true;
             }
         }
 
@@ -83,36 +61,39 @@ public class Player_Ability : MonoBehaviour
                 castAbility();
             }
         }
-
-        if(ModeControl.skill_Aiming && Input.GetButtonUp("Skill")){
-            ModeControl.skill_Aiming = false;
-            castAbility(true);
-        }
-
     }
 
-    void castAbility(bool release = false){
-        if(selected.transform.tag == "Rope"){
-            selected.parent.GetComponent<Rope>().constructRope();
-            Debug.Log("ConstructRope");
-            selected.parent.GetComponent<ElementControl>().usedElement();
-            selected = null;
-            stop_AngleTime();
-        }else if(selected.transform.tag == "Water"){
-            if(release == true){
-                attackPosition = new Vector3((selected.position.x+2*Mathf.Sign(getInputDirection(selected).x)),selected.position.y,selected.position.z);
-                clone = Instantiate(waterBall, attackPosition, transform.rotation);
-                Vector2 shootForce = getInputDirection(selected.transform)*100;
-                clone.AddForce(shootForce);
-                stop_AngleTime();
-                selected.parent.GetComponent<ElementControl>().usedElement();
-                selected = null;
+    void selecting(){
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(transform.position, Detector.getInputDirection(transform), elementRange,LayerMask.GetMask("Element"));
+        if(hit.collider != null && hit.transform.parent.GetComponent<ElementControl>().canUse){
+            // hit valid collider
+            if(selected != hit.transform){
+                if(selected != null){
+                    // set the previous selected ps back to motion
+                    indicateChoice(selected, true);
+                }
+                selected = hit.transform;
+                indicateChoice(selected,false);
             }else{
-                ModeControl.skill_Aiming = true;
+                // selected is still the old one no action required
             }
         }else{
-            stop_AngleTime();
-        }
+            // does not hit anything or not element
+            if(selected != null){
+                // set the previous ps back to motion
+                indicateChoice(selected,true);
+            }
+            selected = null;
+        }           
+    }
+
+    void castAbility(){
+        stop_AngleTime();
+        ModeControl.skill_Aiming = false;
+        selected.parent.GetComponent<ElementControl>().usedElement();
+        selected.parent.GetComponent<Element>().castElement();
+        selected = null;
     }
 
     void start_AngleTime(){
@@ -126,20 +107,7 @@ public class Player_Ability : MonoBehaviour
         angelTimeShade.SetActive(false);
     }
 
-    Vector2 getInputDirection(Transform origin){
-        Ray mouseray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector2 direction = (Vector2)(mouseray.origin - origin.position);    
-        if((Input.GetAxis("Horizontal") != 0)|(Input.GetAxis("Vertical") != 0)){
-            // if from controller;
-            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            // this is just for debug purpose to make the ray more visible
-            direction *= 10f;
-        }
-        
-        Debug.DrawRay(origin.position, direction,Color.green);
-        return direction;
-            
-    }
+
     void indicateChoice(Transform ps, bool psState){
         
         if(psState){

@@ -7,6 +7,7 @@ public class Rope : MonoBehaviour
 
     [SerializeField] int Length;
     [SerializeField] GameObject ropePiece;
+    [SerializeField] float ropeLife;
 
     // Start is called before the first frame update
     void Start()
@@ -27,18 +28,18 @@ public class Rope : MonoBehaviour
             GameObject[] rope = new GameObject[Length];
             rope[0] = Instantiate(ropePiece, transform);
             rope[0].GetComponent<HingeJoint2D>().connectedBody = transform.Find("SpritePoint").GetComponent<Rigidbody2D>();
-            Destroy(rope[0],10f);
+            Destroy(rope[0],ropeLife);
             
             for(int i= 1; i < Length; i++){
                 rope[i] = Instantiate(ropePiece, transform);
                 rope[i].GetComponent<HingeJoint2D>().connectedBody = rope[i - 1].GetComponent<Rigidbody2D>();
                 rope[i].GetComponent<HingeJoint2D>().anchor = new Vector2(0,0.2f);
 
-                Destroy(rope[i],10f);
+                Destroy(rope[i],ropeLife);
             }
 
             // add extra mass to the end of the rope
-            rope[Length-1].GetComponent<Rigidbody2D>().mass = 10f;  
+            rope[Length-1].GetComponent<Rigidbody2D>().mass = 3f;  
         } 
     }
 
