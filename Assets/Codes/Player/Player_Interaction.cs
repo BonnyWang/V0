@@ -16,26 +16,29 @@ public class Player_Interaction : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Rope"){
-            if(!Player_Attributes.onRope && discardRope != other.transform.parent){
+            connectPlayer_Rope(other.gameObject);
+        }
+
+    }
+
+    public void connectPlayer_Rope(GameObject mrope){
+        if(!Player_Attributes.onRope && discardRope != mrope.transform.parent){
                 // Add HingeJoint to player and connected it to the rope
                 if(gameObject.GetComponent<HingeJoint2D>() == null){
                     playerHingeJoint = gameObject.AddComponent<HingeJoint2D>();
                 }
-                playerHingeJoint.connectedBody = other.gameObject.GetComponent<Rigidbody2D>();
+                playerHingeJoint.connectedBody = mrope.GetComponent<Rigidbody2D>();
                 playerHingeJoint.autoConfigureConnectedAnchor = false;
                 playerHingeJoint.anchor = new Vector2(0,0);
                 playerHingeJoint.connectedAnchor = new Vector2(0,0);
 
-                rope = other.transform.parent.GetComponent<Rope>();
+                rope = mrope.transform.parent.GetComponent<Rope>();
                 rope.setChildRB(false);
 
-                interactedObj = other.transform;
+                interactedObj = mrope.transform;
 
                 Player_Attributes.onRope = true;
-            }
-            
         }
-
     }
 
 
