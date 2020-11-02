@@ -92,6 +92,7 @@ public class Player_Ability : MonoBehaviour
         stop_AngleTime();
         ModeControl.skill_Aiming = false;
         selected.parent.GetComponent<ElementControl>().usedElement();
+        selected.parent.GetComponent<Element>().removeSkillSelection();
         selected.parent.GetComponent<Element>().castElement();
         selected = null;
     }
