@@ -6637,7 +6637,7 @@ MonoBehaviour:
   ground_Velocity_H: 6.5
   inAir_Velocity_H: 6
   onRope_Velocity_H: 10
-  inAir_Velocity_V: 11.5
+  inAir_Velocity_V: 10
   onRope_Veolocity_V: 8
   recoveryTime: 1
 --- !u!114 &1465246640

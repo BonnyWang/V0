@@ -16,6 +16,10 @@ public class AnimCon
         mAnimator.SetBool(name,state);
     }
 
+    public bool getVariable(string name){
+        return mAnimator.GetBool(name);
+    }
+
     //Effects
     public void backBounce(GameObject gameObject, GameObject other){
         Vector2 backOff = new Vector2(Mathf.Sign(gameObject.transform.position.x-other.transform.position.x)*backOff_H,backOff_V);

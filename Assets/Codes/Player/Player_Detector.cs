@@ -34,6 +34,10 @@ public class Player_Detector : Detector
                 mAttr.player_Interaction.clearDiscardRope();
                 mAttr.player_Interaction.setRopeActive();
              }
+
+             if(Player_Animation.mAnimCon.getVariable("Jumped")){
+                Player_Animation.mAnimCon.changeAnim("Jumped",false);
+             }
         }
     }
 

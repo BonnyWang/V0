@@ -117,6 +117,7 @@ public class Player_Control : MonoBehaviour
                 mAttr.player_Interaction.detachHingJoint();
             }else if(canJump){
                 Jump();
+                Player_Animation.mAnimCon.changeAnim("Jumped",true);
             }
         }
 
