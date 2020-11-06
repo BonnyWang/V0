@@ -14,6 +14,7 @@ TagManager:
   - Talker
   - Rope
   - Water
+  - Wood
   layers:
   - Default
   - TransparentFX

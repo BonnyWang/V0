@@ -9741,7 +9741,7 @@ PrefabInstance:
     - target: {fileID: 4679053805766330154, guid: 764a7007e1cc88c4eb1edf8728060a63,
         type: 3}
       propertyPath: m_TagString
-      value: Rope
+      value: Wood
       objectReference: {fileID: 0}
     - target: {fileID: 5594854193763856146, guid: 764a7007e1cc88c4eb1edf8728060a63,
         type: 3}
