@@ -36,18 +36,18 @@ public class Detector:MonoBehaviour
 
     }
 
-        public static Vector2 getInputDirection(Transform origin){
-        Ray mouseray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector2 direction = (Vector2)(mouseray.origin - origin.position);    
-            if((Input.GetAxis("Horizontal") != 0)|(Input.GetAxis("Vertical") != 0)){
-                // if from controller;
-                direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-                // this is just for debug purpose to make the ray more visible
-                direction *= 10f;
-            }
-        
-        Debug.DrawRay(origin.position, direction,Color.green);
-        return direction;
-            
+    public static Vector2 getInputDirection(Transform origin){
+    Ray mouseray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    Vector2 direction = (Vector2)(mouseray.origin - origin.position);    
+        if((Input.GetAxis("Horizontal") != 0)|(Input.GetAxis("Vertical") != 0)){
+            // if from controller;
+            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            // this is just for debug purpose to make the ray more visible
+            direction *= 10f;
         }
+    
+    Debug.DrawRay(origin.position, direction,Color.green);
+    return direction.normalized;
+        
+    }
 }

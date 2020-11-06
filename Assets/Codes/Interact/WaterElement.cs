@@ -13,7 +13,7 @@ public class WaterElement : Element
 
 
     void skill_WaterBall(){
-        Vector2 tempdir = Detector.getInputDirection(transform).normalized;
+        Vector2 tempdir = Detector.getInputDirection(transform);
         Vector3 attackPosition = new Vector3(transform.position.x+2*tempdir.x,transform.position.y+2*tempdir.y,transform.position.z);
         clone = Instantiate(waterBall, attackPosition, transform.rotation);
         Vector2 shootForce = tempdir*waterBall_ShootForce;

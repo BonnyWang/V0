@@ -1732,6 +1732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSelection: {fileID: 8385273405206996098, guid: 15b356031cc85fb4cbebee454893f9ca,
     type: 3}
+  Arrow: {fileID: 2475978279990872410, guid: 57a4190ebe4e60646952fd065ad0e458, type: 3}
   waterBall: {fileID: 7759554179602698989, guid: e0df99bd9c0597d41ba63bda5c8885e3,
     type: 3}
   waterBall_ShootForce: 2000
@@ -3017,7 +3018,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3249,6 +3250,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1059270212825688135, guid: df65f0161b8b5944ab7d73a10524b48d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1059270212825688136, guid: df65f0161b8b5944ab7d73a10524b48d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3303,6 +3309,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059270212825688136, guid: df65f0161b8b5944ab7d73a10524b48d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059270212825688136, guid: df65f0161b8b5944ab7d73a10524b48d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1059270212825688137, guid: df65f0161b8b5944ab7d73a10524b48d,
         type: 3}
@@ -5549,7 +5565,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1465246636}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 8
+    OrthographicSize: 15
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -8324,7 +8340,7 @@ GameObject:
   - component: {fileID: 1951860921}
   - component: {fileID: 1951860922}
   m_Layer: 0
-  m_Name: Rope
+  m_Name: WoodElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8427,6 +8443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSelection: {fileID: 8385273405206996098, guid: 15b356031cc85fb4cbebee454893f9ca,
     type: 3}
+  Arrow: {fileID: 2475978279990872410, guid: 57a4190ebe4e60646952fd065ad0e458, type: 3}
   player_InitSwingForce: 5
   ropeReachStep: 0.15
   ropeSwingStep: 0.1
@@ -9284,6 +9301,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059270212825688136, guid: df65f0161b8b5944ab7d73a10524b48d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059270212825688136, guid: df65f0161b8b5944ab7d73a10524b48d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1059270212825688137, guid: df65f0161b8b5944ab7d73a10524b48d,
         type: 3}

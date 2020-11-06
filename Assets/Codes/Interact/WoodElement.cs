@@ -21,7 +21,7 @@ public class WoodElement : Element
     }
     
     public override void castElement(){
-       skill_Rope();
+        skill_Rope();
     }
 
     private void Update() {
@@ -48,7 +48,7 @@ public class WoodElement : Element
 
     void skill_Rope(){
         tempDir = Detector.getInputDirection(transform).normalized;
-        if(validAngle()){
+        if(validAngle(tempDir)){
             GetComponent<Rope>().constructRope();
             lastChild = transform.GetChild(transform.childCount - 1).gameObject;
             ropeLength = Mathf.Abs(transform.childCount*lastChild.GetComponent<HingeJoint2D>().connectedAnchor.y);
@@ -62,14 +62,27 @@ public class WoodElement : Element
         swing = false;
     }
 
-    bool validAngle(){
+    bool validAngle(Vector2 tempDir){
 
-        if(Mathf.Atan2(Mathf.Abs(tempDir.x),Mathf.Abs(tempDir.y)) < Mathf.PI/3){
+        if(Mathf.Rad2Deg*Mathf.Atan2(Mathf.Abs(tempDir.x),Mathf.Abs(tempDir.y)) < 60){
             if(tempDir.y < 0){
                 return true;
             }
         }
         
         return false;
+    }
+
+    public override void showDirection(){
+        Vector2 dir = Detector.getInputDirection(transform);
+        if(validAngle(dir)){
+            Destroy(mArrow);
+            mArrow  = Instantiate(Arrow, this.transform);
+            mArrow.transform.position = new Vector3(transform.position.x+2*dir.x,transform.position.y+2*dir.y,transform.position.z);
+            mArrow.transform.up = dir;
+            if(tempSkillSelection == null){
+                tempSkillSelection = Instantiate(skillSelection, transform);
+            }
+        } 
     }
 }
