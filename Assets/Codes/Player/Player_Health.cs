@@ -8,24 +8,25 @@ public class Player_Health : MonoBehaviour
     int health;
     int numberOfHearts;
 
-    [SerializeField] GameObject[] hearts;
+    [SerializeField] GameObject heartbar;
 
     void Start()
     {
-        health = 50;
+        health = 100;
     }
 
     // Update is called once per frame
     void Update()
     {
         numberOfHearts = health/10;
-        for(int i = 0; i < hearts.Length;i++){
-            if(i < numberOfHearts){
-                hearts[i].SetActive(true);
-            }else{
-                hearts[i].SetActive(false);
-            }
-        }
+        // for(int i = 0; i < hearts.Length;i++){
+        //     if(i < numberOfHearts){
+        //         hearts[i].SetActive(true);
+        //     }else{
+        //         hearts[i].SetActive(false);
+        //     }
+        // }
+        heartbar.transform.localScale = new Vector3(0.8f*health/100f,heartbar.transform.localScale.y,1);
 
         life_Controll();
     }
