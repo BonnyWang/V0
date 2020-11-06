@@ -6616,7 +6616,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2.4
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -6634,10 +6634,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6423fb58b3e9b954597214b178218a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ground_Velocity_H: 6.5
-  inAir_Velocity_H: 6
+  ground_Velocity_H: 7.5
+  inAir_Velocity_H: 7
   onRope_Velocity_H: 10
-  inAir_Velocity_V: 10
+  inAir_Velocity_V: 16.5
   onRope_Veolocity_V: 8
   recoveryTime: 1
 --- !u!114 &1465246640
