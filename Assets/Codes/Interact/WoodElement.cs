@@ -36,25 +36,25 @@ public class WoodElement : Element
         }
         
         if(swing){     
-            if((Vector2)lastChild.transform.position != targetPosition){
-                lastChild.transform.position = Vector2.MoveTowards(lastChild.transform.position,targetPosition, ropeSwingStep);
+            // if((Vector2)lastChild.transform.position != targetPosition){
+                lastChild.GetComponent<Rigidbody2D>().AddForce(tempDir*200,ForceMode2D.Impulse);
                 
-            }else{
+            // }else{
                 swing = false;
-            }
+            // }
         }
     }
 
 
     void skill_Rope(){
         tempDir = Detector.getInputDirection(transform).normalized;
-        if(validAngle(tempDir)){
+        // if(validAngle(tempDir)){
             GetComponent<Rope>().constructRope();
             lastChild = transform.GetChild(transform.childCount - 1).gameObject;
             ropeLength = Mathf.Abs(transform.childCount*lastChild.GetComponent<HingeJoint2D>().connectedAnchor.y);
             targetPosition = new Vector2(transform.position.x,transform.position.y) + ropeLength*tempDir;
             reach = true;
-        }
+        // }
     }
 
     IEnumerator swingCountDown(){
@@ -73,16 +73,16 @@ public class WoodElement : Element
         return false;
     }
 
-    public override void showDirection(){
-        Vector2 dir = Detector.getInputDirection(transform);
-        if(validAngle(dir)){
-            Destroy(mArrow);
-            mArrow  = Instantiate(Arrow, this.transform);
-            mArrow.transform.position = new Vector3(transform.position.x+2*dir.x,transform.position.y+2*dir.y,transform.position.z);
-            mArrow.transform.up = dir;
-            if(tempSkillSelection == null){
-                tempSkillSelection = Instantiate(skillSelection, transform);
-            }
-        } 
-    }
+    // public override void showDirection(){
+    //     Vector2 dir = Detector.getInputDirection(transform);
+    //     if(validAngle(dir)){
+    //         Destroy(mArrow);
+    //         mArrow  = Instantiate(Arrow, this.transform);
+    //         mArrow.transform.position = new Vector3(transform.position.x+2*dir.x,transform.position.y+2*dir.y,transform.position.z);
+    //         mArrow.transform.up = dir;
+    //         if(tempSkillSelection == null){
+    //             tempSkillSelection = Instantiate(skillSelection, transform);
+    //         }
+    //     } 
+    // }
 }

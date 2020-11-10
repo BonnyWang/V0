@@ -125,11 +125,11 @@ public class Player_Ability : MonoBehaviour
         if(Time.timeScale != 1f){
             // If user waited too long and did not cast ability
             stop_AngleTime();
-            selected.parent.GetComponent<Element>().removeSkillSelection();
             ModeControl.mode_Aiming = false;
             ModeControl.skill_Aiming = false;
             if(selected != null){
                 indicateChoice(selected, true);
+                selected.parent.GetComponent<Element>().removeSkillSelection();
             }
             selected = null;
             ModeControl.ability_Cooling = true;

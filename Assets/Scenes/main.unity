@@ -8077,7 +8077,7 @@ MonoBehaviour:
   Length: 8
   ropePiece: {fileID: 4679053805766330154, guid: 764a7007e1cc88c4eb1edf8728060a63,
     type: 3}
-  ropeLife: 10
+  ropeLife: 100
 --- !u!50 &1951860919
 Rigidbody2D:
   serializedVersion: 4
