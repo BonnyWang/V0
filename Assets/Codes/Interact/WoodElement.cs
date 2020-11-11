@@ -7,6 +7,7 @@ public class WoodElement : Element
     [SerializeField] float player_InitSwingForce = 2000f;
     [SerializeField] float ropeReachStep = 0.1f;
     [SerializeField] float ropeSwingStep = 0.1f;
+    [SerializeField] float dashForce = 30f;
     GameObject lastChild;
     float ropeLength;
     Vector2 tempDir;
@@ -37,7 +38,9 @@ public class WoodElement : Element
         
         if(swing){     
             // if((Vector2)lastChild.transform.position != targetPosition){
-                lastChild.GetComponent<Rigidbody2D>().AddForce(tempDir*200,ForceMode2D.Impulse);
+                Debug.Log(tempDir);
+                Debug.DrawLine(targetPosition,player.transform.position,Color.red, 100);
+                player.GetComponent<Rigidbody2D>().AddForce((targetPosition-(Vector2)player.transform.position )*dashForce,ForceMode2D.Impulse);
                 
             // }else{
                 swing = false;

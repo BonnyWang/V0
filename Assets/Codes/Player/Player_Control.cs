@@ -97,20 +97,20 @@ public class Player_Control : MonoBehaviour
         }
 
         //TODO:Need to change?
-        if(translation_V != 0 && Mathf.Abs(translation_H) < 0.5){
-            if(Player_Attributes.onRope){
-                // Control the on the rope
-                onRopeStep += translation_V;
-                if(onRopeStep > onRope_Veolocity_V){
-                    mAttr.player_Interaction.moveUpRope();
-                    onRopeStep = 0;
-                }else if(onRopeStep < -onRope_Veolocity_V){
-                    mAttr.player_Interaction.moveDownRope();
-                    onRopeStep = 0;
-                }
-            }
+        // if(translation_V != 0 && Mathf.Abs(translation_H) < 0.5){
+        //     if(Player_Attributes.onRope){
+        //         // Control the on the rope
+        //         onRopeStep += translation_V;
+        //         if(onRopeStep > onRope_Veolocity_V){
+        //             mAttr.player_Interaction.moveUpRope();
+        //             onRopeStep = 0;
+        //         }else if(onRopeStep < -onRope_Veolocity_V){
+        //             mAttr.player_Interaction.moveDownRope();
+        //             onRopeStep = 0;
+        //         }
+        //     }
             
-        }
+        // }
         
         if(space_Jump){
             if(Player_Attributes.onRope){

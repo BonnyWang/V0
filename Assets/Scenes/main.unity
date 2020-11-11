@@ -8147,6 +8147,7 @@ MonoBehaviour:
   player_InitSwingForce: 5
   ropeReachStep: 0.15
   ropeSwingStep: 0.1
+  dashForce: 30
 --- !u!1 &1958195307
 GameObject:
   m_ObjectHideFlags: 0
