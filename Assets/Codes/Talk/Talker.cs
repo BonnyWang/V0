@@ -19,6 +19,7 @@ public class Talker : MonoBehaviour
     Text content;
     [SerializeField] string[] talkScript = new string[1];
     [SerializeField] string[] replyScipt = new string[1];
+    [SerializeField] Sprite[] replySprite = new Sprite[1];
     int talkScriptIndex;
     int talkLength;
     int replyLength;
@@ -129,10 +130,13 @@ public class Talker : MonoBehaviour
             int b = i;
             GameObject newOption;
             Text text;
+            Transform image;
             newOption = Instantiate(reply_Button, ReplyUI.transform);
             newOption.transform.position = new Vector3(newOption.transform.position.x,newOption.transform.position.y + (replyLength*100/2 - 100*i), 0);
             text = newOption.transform.Find("Text").gameObject.GetComponent<Text>();
+            image = newOption.transform.Find("Image");
             text.text = replyScipt[i];
+            image.GetComponent<Image>().overrideSprite = replySprite[i];
             newOption.GetComponent<Button>().onClick.AddListener(delegate {ButtonClicked(b); });
             newOption.GetComponent<Button>().onClick.AddListener(delegate { Resettalkbox(); });
             newOption.GetComponent<Button>().onClick.AddListener(delegate { Resetmaintalk(); });

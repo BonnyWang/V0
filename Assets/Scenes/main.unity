@@ -8722,6 +8722,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
         type: 3}
+      propertyPath: replySprite.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
       propertyPath: replyScipt.Array.data[3]
       value: Okok
       objectReference: {fileID: 0}
@@ -8806,6 +8811,18 @@ PrefabInstance:
       propertyPath: camControl
       value: 
       objectReference: {fileID: 1866561240}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: replySprite.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 396b507780c933149ae72706563333b0,
+        type: 3}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: replySprite.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 396b507780c933149ae72706563333b0,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 7424404939962753780, guid: 899947b9323a76841b42238e133708c8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 899947b9323a76841b42238e133708c8, type: 3}
@@ -15996,6 +16013,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
         type: 3}
+      propertyPath: replySprite.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
       propertyPath: replyScipt.Array.data[3]
       value: Okok
       objectReference: {fileID: 0}
@@ -16065,6 +16087,30 @@ PrefabInstance:
       propertyPath: camControl
       value: 
       objectReference: {fileID: 1866561240}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: replySprite.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: ac640b8132b80664f91dfca8ca70862f,
+        type: 3}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: replySprite.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: f74f7798e885f254697717e950ff7625,
+        type: 3}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: replySprite.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: ec4f0b0fa9aec9b4ba140262497afeac,
+        type: 3}
+    - target: {fileID: 9006312308428680771, guid: 899947b9323a76841b42238e133708c8,
+        type: 3}
+      propertyPath: replySprite.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2741be4650254ab43855e04027163112,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 7424404939962753780, guid: 899947b9323a76841b42238e133708c8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 899947b9323a76841b42238e133708c8, type: 3}
