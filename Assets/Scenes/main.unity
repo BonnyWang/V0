@@ -1657,6 +1657,8 @@ MonoBehaviour:
   skillSelection: {fileID: 8385273405206996098, guid: 15b356031cc85fb4cbebee454893f9ca,
     type: 3}
   Arrow: {fileID: 2475978279990872410, guid: 57a4190ebe4e60646952fd065ad0e458, type: 3}
+  previousElement: {fileID: 1397187329}
+  nextElement: {fileID: 0}
   waterBall: {fileID: 7759554179602698989, guid: e0df99bd9c0597d41ba63bda5c8885e3,
     type: 3}
   waterBall_ShootForce: 2000
@@ -6108,6 +6110,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1397187329 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4679053805766330154, guid: 764a7007e1cc88c4eb1edf8728060a63,
+    type: 3}
+  m_PrefabInstance: {fileID: 4001911284484264088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1416713791
 GameObject:
   m_ObjectHideFlags: 0
@@ -8077,7 +8085,7 @@ MonoBehaviour:
   Length: 8
   ropePiece: {fileID: 4679053805766330154, guid: 764a7007e1cc88c4eb1edf8728060a63,
     type: 3}
-  ropeLife: 100
+  ropeLife: 10
 --- !u!50 &1951860919
 Rigidbody2D:
   serializedVersion: 4
@@ -8144,6 +8152,8 @@ MonoBehaviour:
   skillSelection: {fileID: 8385273405206996098, guid: 15b356031cc85fb4cbebee454893f9ca,
     type: 3}
   Arrow: {fileID: 2475978279990872410, guid: 57a4190ebe4e60646952fd065ad0e458, type: 3}
+  previousElement: {fileID: 0}
+  nextElement: {fileID: 273659272}
   player_InitSwingForce: 5
   ropeReachStep: 0.15
   ropeSwingStep: 0.1

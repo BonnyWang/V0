@@ -6,6 +6,7 @@ public class Player_Ability : MonoBehaviour
 {
 
     Transform selected;
+    Element selectedElement;
     [SerializeField] float angleTimeScale = 0.07f;
     [SerializeField] float angleTimePeriod = 5f;
     [SerializeField] float abilityCoolingPeriod = 5f;
@@ -36,6 +37,7 @@ public class Player_Ability : MonoBehaviour
 
         if(ModeControl.skill_Aiming){
             selected.parent.GetComponent<Element>().showDirection();
+            changElement();
         }
 
     }
@@ -52,6 +54,7 @@ public class Player_Ability : MonoBehaviour
                 stop_AngleTime();
             }else{
                 ModeControl.skill_Aiming = true;
+                selectedElement = selected.parent.GetComponent<Element>();
             }
         }
 
@@ -59,6 +62,30 @@ public class Player_Ability : MonoBehaviour
         if(Input.GetButtonDown("Skill")){
             if(selected != null){
                 castAbility();
+            }
+        }
+    }
+
+    void changElement(){
+        if(Input.GetButtonDown("Next")){
+            if(selected.parent.GetComponent<Element>().nextElement !=null){
+                selectedElement.removeSkillSelection();
+                indicateChoice(selected, true);
+                selected = selected.parent.GetComponent<Element>().nextElement.transform;
+                selectedElement = selected.parent.GetComponent<Element>();
+                indicateChoice(selected, false);
+                selectedElement.showDirection();
+            }
+            
+        }
+        if(Input.GetButtonDown("Previous")){
+             if(selected.parent.GetComponent<Element>().previousElement !=null){
+                selectedElement.removeSkillSelection();
+                indicateChoice(selected, true);
+                selected = selected.parent.GetComponent<Element>().previousElement.transform;
+                selectedElement = selected.parent.GetComponent<Element>();
+                indicateChoice(selected, false);
+                selectedElement.showDirection();
             }
         }
     }
@@ -91,10 +118,12 @@ public class Player_Ability : MonoBehaviour
     void castAbility(){
         stop_AngleTime();
         ModeControl.skill_Aiming = false;
-        selected.parent.GetComponent<ElementControl>().usedElement();
-        selected.parent.GetComponent<Element>().removeSkillSelection();
-        selected.parent.GetComponent<Element>().castElement();
-        selected = null;
+        if(selected.parent.GetComponent<ElementControl>().canUse){
+            selected.parent.GetComponent<ElementControl>().usedElement();
+            selected.parent.GetComponent<Element>().removeSkillSelection();
+            selected.parent.GetComponent<Element>().castElement();
+            selected = null;
+        }
     }
 
     void start_AngleTime(){
@@ -109,14 +138,14 @@ public class Player_Ability : MonoBehaviour
     }
 
 
-    void indicateChoice(Transform ps, bool psState){
+    void indicateChoice(Transform selected, bool psState){
         
         if(psState){
-            ps.parent.Find("PS").GetComponent<ParticleSystem>().Emit(1);
-            ps.parent.Find("PS").GetComponent<ParticleSystem>().Play();
+            selected.parent.Find("PS").GetComponent<ParticleSystem>().Emit(1);
+            selected.parent.Find("PS").GetComponent<ParticleSystem>().Play();
             
         }else{
-            ps.parent.Find("PS").GetComponent<ParticleSystem>().Pause();
+            selected.parent.Find("PS").GetComponent<ParticleSystem>().Pause();
         }
     }
 
