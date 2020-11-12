@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
+using UnityEngine.EventSystems;
 
 public class Talker : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class Talker : MonoBehaviour
     Talker mtalker;
     int optionChose;
     ReplyAction replyAction;
+    EventSystem mEventSystem;
 
 
     //animation
@@ -40,6 +42,7 @@ public class Talker : MonoBehaviour
         TalkingUI = transform.Find("Talk").gameObject;
         ReplyUI = transform.Find("Reply").gameObject;
         content = transform.Find("Talk").transform.Find("Text").gameObject.GetComponent<Text>();
+        mEventSystem = EventSystem.current;
         hideUI();
         contentinit();
 
@@ -121,18 +124,15 @@ public class Talker : MonoBehaviour
         talkLength = talkScript.Length;
         replyLength = replyScipt.Length;
         content.text = talkScript[talkScriptIndex];
-        
 
-
-
-        for (int i = 0; i < replyLength; i++)
-        {
+        for (int i = 0; i < replyLength; i++){
             int b = i;
             GameObject newOption;
             Text text;
             Transform image;
             newOption = Instantiate(reply_Button, ReplyUI.transform);
             newOption.transform.position = new Vector3(newOption.transform.position.x,newOption.transform.position.y + (replyLength*100/2 - 100*i), 0);
+            // newOption.GetComponent<Button>().OnSelect(null);
             text = newOption.transform.Find("Text").gameObject.GetComponent<Text>();
             image = newOption.transform.Find("Image");
             text.text = replyScipt[i];
@@ -140,14 +140,17 @@ public class Talker : MonoBehaviour
             newOption.GetComponent<Button>().onClick.AddListener(delegate {ButtonClicked(b); });
             newOption.GetComponent<Button>().onClick.AddListener(delegate { Resettalkbox(); });
             newOption.GetComponent<Button>().onClick.AddListener(delegate { Resetmaintalk(); });
-
         }
     }
 
     void showReply(){
         ReplyUI.SetActive(true);
 
-
+        // For select by keyboard or joystick
+        GameObject firstButton = transform.Find("Reply/replyOption(Clone)").gameObject;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
+        // firstButton.GetComponent<Button>().OnSelect(null);
     }
     void timestop()
     {
