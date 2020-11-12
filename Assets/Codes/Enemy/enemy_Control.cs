@@ -7,6 +7,7 @@ public class enemy_Control : MonoBehaviour
     //Enemy Property
     int health;
     Enemy_Attributes mAttr;
+    [SerializeField] GameObject boom;
     
 
     void Start()
@@ -29,6 +30,14 @@ public class enemy_Control : MonoBehaviour
         if(other.gameObject.tag.Substring(0,6) == "Attack"){
             health -= 3;
             
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag == "Player"){
+            GameObject temp;
+            temp = Instantiate(boom,transform);
+            Destroy(temp,0.5f);
         }
     }
 }
