@@ -37,6 +37,7 @@ public class Enemy_Attack : MonoBehaviour
         }
     }
 
+    // This can be changed to a greater collider which indicate the range 
     bool detectPlayer(){
         if(Mathf.Abs(Vector3.Distance(player.transform.position,transform.position)) < AttackDistance){
             Debug.Log("Enemy Detected Player");
