@@ -10,9 +10,7 @@ public class Rope : MonoBehaviour
     [SerializeField] float ropeLife;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start(){
     }
 
     public void setChildRB(bool state){
@@ -40,6 +38,7 @@ public class Rope : MonoBehaviour
 
             // add extra mass to the end of the rope
             rope[Length-1].GetComponent<Rigidbody2D>().mass = 3f;  
+            rope[Length-1].GetComponent<Collider2D>().isTrigger = true;
         } 
     }
 

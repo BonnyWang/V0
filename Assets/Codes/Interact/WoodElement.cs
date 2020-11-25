@@ -15,6 +15,8 @@ public class WoodElement : Element
     bool swing;
     bool reach;
 
+    bool outLimit;
+
     private void Start() {
         reach = false;
         swing = false;
@@ -28,10 +30,11 @@ public class WoodElement : Element
     private void Update() {
         if(reach){
             lastChild.transform.position = Vector2.MoveTowards(lastChild.transform.position,player.transform.position, ropeReachStep);
-            if(lastChild.transform.position == player.transform.position){
+            if(lastChild.transform.position == player.transform.position | outLimit == true){
                 player.GetComponent<Player_Interaction>().connectPlayer_Rope(lastChild);
                 reach = false;
                 swing = true;
+                outLimit = false;
                 // StartCoroutine(swingCountDown());
             }
         }
@@ -60,9 +63,9 @@ public class WoodElement : Element
         // }
     }
 
-    IEnumerator swingCountDown(){
+    IEnumerator reachCountDown(){
         yield return new WaitForSecondsRealtime(1f);
-        swing = false;
+        outLimit = true;
     }
 
     bool validAngle(Vector2 tempDir){
