@@ -13,11 +13,8 @@ public class Rope : MonoBehaviour
     void Start(){
     }
 
-    public void setChildRB(bool state){
-        Collider2D[] temp =  GetComponentsInChildren<Collider2D>();
-        for(int i = 1; i < temp.Length; i++){
-            temp[i].enabled = state;
-        }
+    public void setLastChildCollider(bool state){
+        transform.GetChild(transform.childCount -1).GetComponent<Collider2D>().enabled = state;
     }
 
     public void constructRope(){
@@ -39,15 +36,8 @@ public class Rope : MonoBehaviour
             // add extra mass to the end of the rope
             rope[Length-1].GetComponent<Rigidbody2D>().mass = 3f;  
             rope[Length-1].GetComponent<Collider2D>().isTrigger = true;
+            rope[Length-1].tag = "Rope";
         } 
     }
 
-    public int childIndex(Transform child){
-        for(int i = 0; i < transform.childCount; i++){
-            if(transform.GetChild(i) == child){
-                return i;   
-            }
-        }
-        return -1;
-    }
 }

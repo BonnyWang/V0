@@ -24,5 +24,6 @@ public class ElementControl : MonoBehaviour
         canUse = true;
         particleSystem.Emit(1);
         particleSystem.Play();
+        StopCoroutine(this.reActive());
     }
 }

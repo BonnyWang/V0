@@ -22,18 +22,22 @@ public class Player_Interaction : MonoBehaviour
     }
 
     public void connectPlayer_Rope(GameObject mrope){
+        if(gameObject.GetComponent<HingeJoint2D>() != null){
+            Destroy(gameObject.GetComponent<HingeJoint2D>());
+            Player_Attributes.onRope = false;
+        }
+
         if(!Player_Attributes.onRope && discardRope != mrope.transform.parent){
                 // Add HingeJoint to player and connected it to the rope
-                if(gameObject.GetComponent<HingeJoint2D>() == null){
-                    playerHingeJoint = gameObject.AddComponent<HingeJoint2D>();
-                }
+                
+                playerHingeJoint = gameObject.AddComponent<HingeJoint2D>();
                 playerHingeJoint.connectedBody = mrope.GetComponent<Rigidbody2D>();
                 playerHingeJoint.autoConfigureConnectedAnchor = false;
                 playerHingeJoint.anchor = new Vector2(0,0);
                 playerHingeJoint.connectedAnchor = new Vector2(0,0);
 
                 rope = mrope.transform.parent.GetComponent<Rope>();
-                rope.setChildRB(false);
+                rope.setLastChildCollider(false);
 
                 interactedObj = mrope.transform;
 
@@ -53,7 +57,7 @@ public class Player_Interaction : MonoBehaviour
 
     public void setRopeActive(){
         // Set the climbed rope back to active
-        rope.setChildRB(true);
+        rope.setLastChildCollider(true);
     }
 
     public void moveUpRope(){

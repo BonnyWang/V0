@@ -135,6 +135,7 @@ public class Player_Ability : MonoBehaviour
     void stop_AngleTime(){
         Time.timeScale = 1f;
         angelTimeShade.SetActive(false);
+        StopAllCoroutines();
     }
 
 
@@ -165,11 +166,13 @@ public class Player_Ability : MonoBehaviour
         }
 
         StartCoroutine(abilityCooling());
+        yield break;
     }
 
     IEnumerator abilityCooling(){
         yield return new WaitForSecondsRealtime(abilityCoolingPeriod);
         ModeControl.ability_Cooling = false;
+        yield break;
     }
 
 }

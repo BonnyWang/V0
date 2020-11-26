@@ -22,7 +22,8 @@ public class AnimCon
 
     //Effects
     public void backBounce(GameObject gameObject, GameObject other, Vector2 backOff){
-        Debug.Log("backoff"+backOff.x);
+        float direction = Mathf.Sign(other.transform.position.x - gameObject.transform.position.x);
+        backOff.x = backOff.x*direction;
         gameObject.GetComponent<Rigidbody2D>().AddForce(backOff,ForceMode2D.Impulse);
     }
 

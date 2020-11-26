@@ -20,6 +20,7 @@ public class WoodElement : Element
     private void Start() {
         reach = false;
         swing = false;
+        outLimit = false;
 
     }
     
@@ -40,7 +41,7 @@ public class WoodElement : Element
         }
         
         if(swing){     
-            if(Vector2.Distance((Vector2)player.transform.position, targetPosition) > 0.8f){
+            if(Vector2.Distance((Vector2)player.transform.position, targetPosition) > 0.8f & Player_Attributes.onRope){
                 Debug.DrawLine(targetPosition,player.transform.position,Color.red, 100);
                 player.GetComponent<Rigidbody2D>().gravityScale = 0;
                 player.GetComponent<Rigidbody2D>().velocity = (targetPosition-(Vector2)player.transform.position )*dashForce;
@@ -62,12 +63,16 @@ public class WoodElement : Element
             ropeLength = Mathf.Abs(transform.childCount*lastChild.GetComponent<HingeJoint2D>().connectedAnchor.y);
             targetPosition = new Vector2(transform.position.x,transform.position.y) + ropeLength*tempDir;
             reach = true;
+            player.GetComponent<Player_Interaction>().connectPlayer_Rope(lastChild);
+            StartCoroutine(reachCountDown());
+            
         // }
     }
 
     IEnumerator reachCountDown(){
         yield return new WaitForSecondsRealtime(1f);
         outLimit = true;
+        yield break;
     }
 
     bool validAngle(Vector2 tempDir){
