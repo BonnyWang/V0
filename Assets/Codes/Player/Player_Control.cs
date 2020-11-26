@@ -85,7 +85,7 @@ public class Player_Control : MonoBehaviour
         if(Mathf.Abs(translation_H)>0){
             
             if(Mathf.Sign(playerRB.velocity.x) != Mathf.Sign(playerTF.localScale.x)){
-                Player_Animation.mAnimCon.flipSprite(transform);
+                mAttr.mAnimCon.flipSprite(transform);
                 // flipSprite();
             }
 
@@ -117,7 +117,7 @@ public class Player_Control : MonoBehaviour
                 mAttr.player_Interaction.detachHingJoint();
             }else if(canJump){
                 Jump();
-                Player_Animation.mAnimCon.changeAnim("Jumped",true);
+                mAttr.mAnimCon.changeAnim("Jumped",true);
             }
         }
 
@@ -195,11 +195,11 @@ public class Player_Control : MonoBehaviour
 
         //TODO: inair and Jump condition should also be considered
         if(moving_Forced_H){
-            Player_Animation.mAnimCon.changeAnim("Walking", true);
+            mAttr.mAnimCon.changeAnim("Walking", true);
             // playerAN.SetBool("Walking", true);
         }else{
             // playerAN.SetBool("Walking",false);
-            Player_Animation.mAnimCon.changeAnim("Walking", false);
+            mAttr.mAnimCon.changeAnim("Walking", false);
         }
         
     }

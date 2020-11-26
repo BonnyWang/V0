@@ -40,14 +40,16 @@ public class WoodElement : Element
         }
         
         if(swing){     
-            // if((Vector2)lastChild.transform.position != targetPosition){
-                Debug.Log(tempDir);
+            if(Vector2.Distance((Vector2)player.transform.position, targetPosition) > 0.8f){
                 Debug.DrawLine(targetPosition,player.transform.position,Color.red, 100);
-                player.GetComponent<Rigidbody2D>().AddForce((targetPosition-(Vector2)player.transform.position )*dashForce,ForceMode2D.Impulse);
+                player.GetComponent<Rigidbody2D>().gravityScale = 0;
+                player.GetComponent<Rigidbody2D>().velocity = (targetPosition-(Vector2)player.transform.position )*dashForce;
+                // player.GetComponent<Rigidbody2D>().AddForce((targetPosition-(Vector2)player.transform.position )*dashForce,ForceMode2D.Impulse);
                 
-            // }else{
+            }else{
                 swing = false;
-            // }
+                player.GetComponent<Rigidbody2D>().gravityScale = 3;
+            }
         }
     }
 

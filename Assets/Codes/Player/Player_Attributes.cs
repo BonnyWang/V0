@@ -60,6 +60,7 @@ public class Player_Attributes: Attributes
         }
     }
     private void Start() {
+        base_Initialization();
         initialization();
     }
 

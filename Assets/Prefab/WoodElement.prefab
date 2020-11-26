@@ -124,7 +124,7 @@ MonoBehaviour:
   player_InitSwingForce: 5
   ropeReachStep: 0.15
   ropeSwingStep: 0.1
-  dashForce: 22
+  dashForce: 10
 --- !u!1001 &6082720720035335775
 PrefabInstance:
   m_ObjectHideFlags: 0

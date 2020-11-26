@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Player_Mask: MonoBehaviour
 {
-    // Start is called before the first frame update
+    Player_Attributes mAttr;
     void Start()
     {
-        
-        
+        mAttr = GetComponent<Player_Attributes>();
     }
 
     // Update is called once per frame
@@ -21,7 +20,7 @@ public class Player_Mask: MonoBehaviour
         if(other.gameObject.tag.Substring(0,4) == "Mask"){
             Player_Attributes.wearMask = true;
             // Player_Animation.changeAnim("Masked",true);
-            Player_Animation.mAnimCon.changeAnim("Masked",true);
+            mAttr.mAnimCon.changeAnim("Masked",true);
             Destroy(other.gameObject);
         }
         

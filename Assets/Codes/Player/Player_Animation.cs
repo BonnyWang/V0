@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Player_Animation : MonoBehaviour
 {
-    static Animator animator;
-    public static AnimCon mAnimCon;
+    Player_Attributes mAttr;
+    [SerializeField] Vector2 backOff;
     
     void Start()
     {
-        animator = GetComponent<Animator>();
-        mAnimCon = new AnimCon(animator);
+        mAttr = GetComponent<Player_Attributes>();
     }
 
     
@@ -18,7 +17,7 @@ public class Player_Animation : MonoBehaviour
         
         if(other.gameObject.tag == "Enemy"){
             
-            mAnimCon.backBounce(gameObject,other.gameObject);
+            mAttr.mAnimCon.backBounce(gameObject,other.gameObject,backOff);
             Player_Attributes.underAttack = true;
             Player_Attributes.timeAttacked = Time.time;
         }

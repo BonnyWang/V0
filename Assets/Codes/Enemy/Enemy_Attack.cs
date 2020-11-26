@@ -7,6 +7,7 @@ public class Enemy_Attack : MonoBehaviour
     // AnimCon mAnimCon;
     [SerializeField] GameObject player;
     [SerializeField] float AttackDistance;
+    [SerializeField] Vector2 backOff;
 
     Enemy_Attributes mAttr;
 
@@ -30,7 +31,7 @@ public class Enemy_Attack : MonoBehaviour
     
     private void OnCollisionExit2D(Collision2D other) {
         if(other.gameObject.tag == "Player"){
-            mAttr.mAnimCon.backBounce(gameObject,other.gameObject);
+            mAttr.mAnimCon.backBounce(gameObject,other.gameObject,backOff);
             mAttr.underAttack = true;
             mAttr.timeAttacked = Time.time;
             Debug.Log("Enemy Debounced");
