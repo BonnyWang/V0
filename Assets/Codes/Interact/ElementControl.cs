@@ -14,6 +14,7 @@ public class ElementControl : MonoBehaviour
     }
     public void usedElement(){
         canUse = false;
+        GetComponentInChildren<Collider2D>().enabled = false;
         StartCoroutine(reActive());
         particleSystem.Clear();
     }
@@ -22,6 +23,7 @@ public class ElementControl : MonoBehaviour
         yield return new WaitForSeconds(coolingTime);
         Debug.Log("can be Reuse");
         canUse = true;
+        GetComponentInChildren<Collider2D>().enabled = true;
         particleSystem.Emit(1);
         particleSystem.Play();
         StopCoroutine(this.reActive());

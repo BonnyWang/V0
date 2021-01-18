@@ -16,10 +16,10 @@ public class Player_Interaction : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Rope"){
-            connectPlayer_Rope(other.gameObject);
+            // connectPlayer_Rope(other.gameObject);
         }
-
     }
+
 
     public void connectPlayer_Rope(GameObject mrope){
         if(gameObject.GetComponent<HingeJoint2D>() != null){

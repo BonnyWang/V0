@@ -28,20 +28,20 @@ public class WoodElement : Element
         skill_Rope();
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if(reach){
+            lastChild = transform.GetChild(transform.childCount - 1).gameObject;
+
             lastChild.transform.position = Vector2.MoveTowards(lastChild.transform.position,player.transform.position, ropeReachStep);
-            if(lastChild.transform.position == player.transform.position | outLimit == true){
+            if(lastChild.transform.position == player.transform.position & !swing){
                 player.GetComponent<Player_Interaction>().connectPlayer_Rope(lastChild);
                 reach = false;
-                swing = true;
-                outLimit = false;
-                // StartCoroutine(swingCountDown());
             }
         }
         
         if(swing){     
-            if(Vector2.Distance((Vector2)player.transform.position, targetPosition) > 0.8f & Player_Attributes.onRope){
+            // should also check if player is on rope to 
+            if(Vector2.Distance((Vector2)player.transform.position, targetPosition) > 0.5f){
                 Debug.DrawLine(targetPosition,player.transform.position,Color.red, 100);
                 player.GetComponent<Rigidbody2D>().gravityScale = 0;
                 player.GetComponent<Rigidbody2D>().velocity = (targetPosition-(Vector2)player.transform.position )*dashForce;
@@ -49,7 +49,9 @@ public class WoodElement : Element
                 
             }else{
                 swing = false;
-                player.GetComponent<Rigidbody2D>().gravityScale = 3;
+                player.GetComponent<Rigidbody2D>().gravityScale = 3f;
+                GetComponent<Rope>().setGravityforChilds(3f);
+                // player.GetComponent<Player_Interaction>().connectPlayer_Rope(lastChild);
             }
         }
     }
@@ -57,16 +59,15 @@ public class WoodElement : Element
 
     void skill_Rope(){
         tempDir = Detector.getInputDirection(transform).normalized;
-        // if(validAngle(tempDir)){
-            GetComponent<Rope>().constructRope();
-            lastChild = transform.GetChild(transform.childCount - 1).gameObject;
-            ropeLength = Mathf.Abs(transform.childCount*lastChild.GetComponent<HingeJoint2D>().connectedAnchor.y);
-            targetPosition = new Vector2(transform.position.x,transform.position.y) + ropeLength*tempDir;
-            reach = true;
-            player.GetComponent<Player_Interaction>().connectPlayer_Rope(lastChild);
-            StartCoroutine(reachCountDown());
-            
-        // }
+        GetComponent<Rope>().constructRope();
+        GetComponent<Rope>().setGravityforChilds(0f);
+        
+        ropeLength = 5f;
+        targetPosition = new Vector2(transform.position.x,transform.position.y) + ropeLength*tempDir;
+        swing = true;
+        reach = true;
+        StartCoroutine(reachCountDown());
+
     }
 
     IEnumerator reachCountDown(){
@@ -85,17 +86,4 @@ public class WoodElement : Element
         
         return false;
     }
-
-    // public override void showDirection(){
-    //     Vector2 dir = Detector.getInputDirection(transform);
-    //     if(validAngle(dir)){
-    //         Destroy(mArrow);
-    //         mArrow  = Instantiate(Arrow, this.transform);
-    //         mArrow.transform.position = new Vector3(transform.position.x+2*dir.x,transform.position.y+2*dir.y,transform.position.z);
-    //         mArrow.transform.up = dir;
-    //         if(tempSkillSelection == null){
-    //             tempSkillSelection = Instantiate(skillSelection, transform);
-    //         }
-    //     } 
-    // }
 }
