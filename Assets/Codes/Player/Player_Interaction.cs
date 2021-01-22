@@ -37,7 +37,7 @@ public class Player_Interaction : MonoBehaviour
                 playerHingeJoint.connectedAnchor = new Vector2(0,0);
 
                 rope = mrope.transform.parent.GetComponent<Rope>();
-                rope.setLastChildCollider(false);
+                // rope.setLastChildCollider(false);
 
                 interactedObj = mrope.transform;
 
@@ -57,7 +57,7 @@ public class Player_Interaction : MonoBehaviour
 
     public void setRopeActive(){
         // Set the climbed rope back to active
-        rope.setLastChildCollider(true);
+        // rope.setLastChildCollider(true);
     }
 
     public void moveUpRope(){

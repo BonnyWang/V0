@@ -89,7 +89,12 @@ public class Player_Control : MonoBehaviour
                 // flipSprite();
             }
 
-            move();
+            if(Player_Attributes.onRope){
+                ropeSwing();
+            }else{
+                move();
+            }   
+
             moving_Forced_H = true;
         }else{
             moving_Forced_H = false;
@@ -202,6 +207,16 @@ public class Player_Control : MonoBehaviour
             mAttr.mAnimCon.changeAnim("Walking", false);
         }
         
+    }
+
+    void ropeSwing(){
+        Transform ropePoint = GetComponent<HingeJoint2D>().connectedBody.transform.parent;
+        Vector3 relativeDirection = transform.position - ropePoint.position;
+
+        Vector2 swingForce = new Vector2(-relativeDirection.y, relativeDirection.x);
+        swingForce = swingForce*onRope_Velocity_H*Mathf.Sign(translation_H);
+        playerRB.AddForce(swingForce);
+        Debug.Log("swing" + swingForce);
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
