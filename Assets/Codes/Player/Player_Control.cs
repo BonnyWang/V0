@@ -213,7 +213,7 @@ public class Player_Control : MonoBehaviour
         Transform ropePoint = GetComponent<HingeJoint2D>().connectedBody.transform.parent;
         Vector3 relativeDirection = transform.position - ropePoint.position;
 
-        Vector2 swingForce = new Vector2(-relativeDirection.y, relativeDirection.x);
+        Vector2 swingForce = new Vector2(-relativeDirection.y, relativeDirection.x).normalized;
         swingForce = swingForce*onRope_Velocity_H*Mathf.Sign(translation_H);
         playerRB.AddForce(swingForce);
         Debug.Log("swing" + swingForce);

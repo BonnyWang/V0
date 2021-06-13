@@ -61,6 +61,10 @@ public class WoodElement : Element
         tempDir = Detector.getInputDirection(transform).normalized;
         GetComponent<Rope>().constructRope();
         GetComponent<Rope>().setGravityforChilds(0f);
+
+        if(player.GetComponent<HingeJoint2D>()!=null){
+            player.GetComponent<Player_Interaction>().detachHingJoint();
+        }
         
         ropeLength = 5f;
         targetPosition = new Vector2(transform.position.x,transform.position.y) + ropeLength*tempDir;
